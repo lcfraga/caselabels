@@ -118,7 +118,7 @@ class CaseLabelsApp {
     this.backend.postCaseLabel(
       { caseId: this.nextCase.id, label: this.label, durationInMillis },
       () => this.onCaseLabelSuccess(),
-      () => this.onCaseLabelError()
+      (error) => this.onCaseLabelError(error)
     );
   }
 
@@ -169,8 +169,12 @@ class CaseLabelsApp {
     this.getNextCase();
   }
 
-  onCaseLabelError() {
-    this.caseLabelFormController.onCaseLabelError();
+  onCaseLabelError(error) {
+    if (error.status === 409) {
+      this.getNextCase();
+    } else {
+      this.caseLabelFormController.onCaseLabelError();
+    }
   }
 }
 
