@@ -1,6 +1,6 @@
 # caselabels
 
-Both the backend and the frontend were built using nodejs `12.16.3`.
+Both the backend and the React frontend were built using nodejs `12.16.3`.
 
 ## User credentials
 
