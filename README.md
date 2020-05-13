@@ -15,7 +15,7 @@ cd ..
 cd frontend
 npm install
 script/dockerize
-..
+cd ..
 cd docker
 docker-compose up
 ```
