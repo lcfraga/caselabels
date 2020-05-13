@@ -32,7 +32,8 @@ caseSchema.statics.findNextForUser = function (userId) {
     },
     {
       $project: {
-        id: 1,
+        _id: 0,
+        id: '$_id',
         content: 1,
       },
     },
