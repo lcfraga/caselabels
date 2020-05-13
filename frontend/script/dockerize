@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+[ -z "$DEBUG" ] || set -x
+
+set -e
+
+cd "$(dirname "$0")/../"
+
+npm run build
+docker build -t caselabels-frontend:latest .
