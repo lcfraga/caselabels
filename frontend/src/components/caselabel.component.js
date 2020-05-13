@@ -93,7 +93,6 @@ const CaseLabelComponent = () => {
           ) : (
             <div></div>
           )}
-          )}
         </div>
       )}
     </div>
