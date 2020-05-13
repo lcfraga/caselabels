@@ -31,6 +31,7 @@ router.post('/login', async (req, res) => {
   );
 
   res.send({
+    id: user._id,
     name: user.name,
     token: token,
   });
