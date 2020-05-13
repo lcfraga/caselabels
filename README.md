@@ -20,7 +20,7 @@ cd docker
 docker-compose up
 ```
 
-The frontend will be running on `http://localhost:80`. To use a different port, e.g., port `8080`, the `frontend/src/config.js` file must be changed to:
+The React frontend will be running on `http://localhost:80` and the jQuery frontend will be running on `http://localhost:80/jquery/`. To use a different port, e.g., port `8080`, the `frontend/src/config.js` file must be changed to:
 
 ```js
 const CONFIG = {
@@ -28,6 +28,12 @@ const CONFIG = {
 };
 
 export default CONFIG;
+```
+
+And the first line of the `frontend/jquery/js/caselabels.jquery.js` file must be changed to:
+
+```js
+const BACKEND_API_URL = 'http://localhost:8080/api';
 ```
 
 Then, the frontend docker image has to be (re)created:
