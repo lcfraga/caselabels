@@ -20,6 +20,7 @@ const CaseLabelFormComponent = (props) => {
               id="nextCase"
               rows="20"
               value={props.nextCase.content}
+              readOnly
             />
           </div>
         </div>

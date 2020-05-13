@@ -23,7 +23,7 @@ class LoginComponent extends Component {
       <div className="container">
         <div className="row">
           <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-            <h1>Case labels</h1>
+            <h1>Case labels (React)</h1>
             <div className="px-2">
               <form>
                 <div className="form-group">

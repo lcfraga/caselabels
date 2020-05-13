@@ -9,6 +9,7 @@ class UserContextProvider extends Component {
     loggedIn: false,
     id: null,
     name: null,
+    error: '',
   };
 
   setAuthorizationHeader(token) {
@@ -16,20 +17,22 @@ class UserContextProvider extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
     const userJson = localStorage.getItem('user');
-    const user = JSON.parse(userJson);
 
-    if (!!token && !!user) {
-      this.setState({
-        loggedIn: true,
-        id: user.id,
-        name: user.name,
-        error: '',
-      });
+    if (!userJson) {
+      return;
     }
 
-    this.setAuthorizationHeader(token);
+    const user = JSON.parse(userJson);
+
+    this.setState({
+      loggedIn: true,
+      id: user.id,
+      name: user.name,
+      error: '',
+    });
+
+    this.setAuthorizationHeader(user.token);
   }
 
   logIn(email, password) {
@@ -43,13 +46,7 @@ class UserContextProvider extends Component {
           error: '',
         });
 
-        localStorage.setItem('token', response.data.token);
-
-        const userJson = JSON.stringify({
-          id: response.data.id,
-          name: response.data.name,
-        });
-
+        const userJson = JSON.stringify(response.data);
         localStorage.setItem('user', userJson);
 
         this.setAuthorizationHeader(response.data.token);
@@ -72,7 +69,6 @@ class UserContextProvider extends Component {
       error: '',
     });
 
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
 
     this.setAuthorizationHeader('');
