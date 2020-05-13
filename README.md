@@ -8,7 +8,7 @@ There are 2 users: `jsilver@hospital.com` has uses `password` as password and `h
 
 ## Running
 
-```
+```sh
 cd backend
 script/dockerize
 cd ..
@@ -20,4 +20,28 @@ cd docker
 docker-compose up
 ```
 
-The frontend will be running on `http://localhost:80`. To use a different port, e.g., port `8080`, run `EXPOSED_NGINX_PORT=8080 docker-compose up` instead.
+The frontend will be running on `http://localhost:80`. To use a different port, e.g., port `8080`, the `frontend/src/config.js` file must be changed to:
+
+```js
+const CONFIG = {
+  BACKEND_API_URL: 'http://localhost:8080/api',
+};
+
+export default CONFIG;
+```
+
+Then, the frontend docker image has to be (re)created:
+
+```sh
+cd frontend
+npm install
+script/dockerize
+cd ..
+```
+
+Once that's done, we can run `docker-compose`:
+
+```sh
+cd docker
+EXPOSED_NGINX_PORT=8080 docker-compose up
+```
