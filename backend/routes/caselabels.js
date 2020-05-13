@@ -8,7 +8,7 @@ router.post('/', auth, async (req, res) => {
     userId: req.user.id,
     caseId: req.body.caseId,
     label: req.body.label,
-    duration: req.body.duration,
+    durationInMillis: req.body.durationInMillis,
   });
 
   await caseLabel.save((error) => {

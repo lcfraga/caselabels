@@ -16,7 +16,7 @@ const caseLabelSchema = new Schema({
     type: String,
     required: true,
   },
-  duration: {
+  durationInMillis: {
     type: Number,
     required: true,
   },
