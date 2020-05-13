@@ -6,8 +6,7 @@ import CONFIG from '../config';
 
 const initialState = {
   done: false,
-  loading: true,
-  error: '',
+  error: null,
   nextCase: {},
   labels: [],
   count: 0,
@@ -23,7 +22,7 @@ const CaseLabelComponent = () => {
       .then((response) => {
         dispatch({ type: 'FETCH_LABELS_SUCCESS', payload: response.data });
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch({
           type: 'FETCH_LABELS_ERROR',
           payload: 'Failed to retrieve labels.',
@@ -56,14 +55,18 @@ const CaseLabelComponent = () => {
         label: label,
         durationInMillis: new Date() - state.startedAt,
       })
-      .then((response) => {
+      .then(() => {
         dispatch({ type: 'CASE_LABEL_SUCCESS' });
       })
       .catch((error) => {
-        dispatch({
-          type: 'CASE_LABEL_ERROR',
-          payload: 'Failed to label case.',
-        });
+        if (error.response && error.response.status === 409) {
+          dispatch({ type: 'CASE_LABEL_CONFLICT' });
+        } else {
+          dispatch({
+            type: 'CASE_LABEL_ERROR',
+            payload: 'Failed to label case.',
+          });
+        }
       });
   };
 

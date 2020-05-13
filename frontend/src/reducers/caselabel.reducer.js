@@ -3,9 +3,8 @@ const caseLabelReducer = (state, action) => {
     case 'FETCH_LABELS_SUCCESS':
       return {
         done: state.done,
-        loading: false,
         nextCase: state.nextCase,
-        error: '',
+        error: null,
         labels: action.payload,
         count: state.count,
         startedAt: state.startedAt,
@@ -14,7 +13,6 @@ const caseLabelReducer = (state, action) => {
     case 'FETCH_LABELS_ERROR':
       return {
         done: state.done,
-        loading: false,
         nextCase: state.nextCase,
         error: action.payload,
         labels: [],
@@ -24,8 +22,7 @@ const caseLabelReducer = (state, action) => {
 
     case 'FETCH_CASE_SUCCESS':
       return {
-        done: false,
-        loading: false,
+        done: state.done,
         nextCase: action.payload,
         error: null,
         labels: state.labels,
@@ -36,7 +33,6 @@ const caseLabelReducer = (state, action) => {
     case 'FETCH_CASE_DONE':
       return {
         done: true,
-        loading: false,
         nextCase: {},
         error: null,
         labels: [],
@@ -47,7 +43,6 @@ const caseLabelReducer = (state, action) => {
     case 'FETCH_CASE_ERROR':
       return {
         done: false,
-        loading: false,
         nextCase: {},
         error: action.payload,
         labels: state.labels,
@@ -58,7 +53,16 @@ const caseLabelReducer = (state, action) => {
     case 'CASE_LABEL_SUCCESS':
       return {
         done: false,
-        loading: false,
+        nextCase: state.nextCase,
+        error: null,
+        labels: state.labels,
+        count: state.count + 1,
+        startedAt: state.startedAt,
+      };
+
+    case 'CASE_LABEL_CONFLICT':
+      return {
+        done: false,
         nextCase: state.nextCase,
         error: null,
         labels: state.labels,
@@ -68,8 +72,7 @@ const caseLabelReducer = (state, action) => {
 
     case 'CASE_LABEL_ERROR':
       return {
-        done: false,
-        loading: false,
+        done: state.done,
         nextCase: state.nextCase,
         error: action.payload,
         labels: state.labels,
