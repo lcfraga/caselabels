@@ -7,12 +7,18 @@ services:
       - ${EXPOSED_NGINX_PORT:-80}:80
     links:
       - backend
+      - frontend
+
+  frontend:
+    image: caselabels-frontend:latest
 
   backend:
     image: caselabels-backend:latest
     environment:
       - MONGO_URI=mongodb://caselabels:caselabels@mongo:27017/caselabels
       - TOKEN_SECRET=IuhBN4Ah5t7DMSKwUvbECKpk1KKr7fhoeiaLsNgw1aHzrG3BLF4efl0bfWcv4XfcxrD2WB9frHflBzYY6MTv06Pl1ddr9GdSSxHJClu2L14ZhymMviHibFkBqdjfwEVG5CWbDB7Z7b4kBkHj2W8FiWGlTPzRSJG40cd2OxbK4Rw4Svrx7mfBrYm74xvfkncAvklaSR6CNyI00rRl6iYEmWFxCURtdqj9HnJpX6Er4PhjPE6FAvvNbW5p1lC4EvO2
+    links:
+      - mongo
 
   mongo-express:
     image: mongo-express:latest
