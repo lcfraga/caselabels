@@ -2,13 +2,30 @@
   "env": {
     "commonjs": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
-  "extends": ["standard"],
+  "plugins": ["mocha"],
+  "extends": ["standard", "plugin:mocha/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "overrides": [
+    {
+      "files": ["*.integration.js"],
+      "rules": {
+        "no-unused-expressions": "off",
+        "handle-callback-err": "off"
+      }
+    },
+    {
+      "files": ["users.integration.js"],
+      "rules": {
+        "mocha/no-setup-in-describe": "off"
+      }
+    }
+  ],
   "parserOptions": {
     "ecmaVersion": 11
   },

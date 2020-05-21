@@ -1,29 +1,29 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
+const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
 const caseLabelSchema = new Schema({
   caseId: {
     type: ObjectId,
-    required: true,
+    required: true
   },
   userId: {
     type: ObjectId,
-    required: true,
+    required: true
   },
   label: {
     type: String,
-    required: true,
+    required: true
   },
   durationInMillis: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-caseLabelSchema.index({ caseId: 1, userId: 1 }, { unique: true });
+caseLabelSchema.index({ caseId: 1, userId: 1 }, { unique: true })
 
-const CaseLabel = mongoose.model('CaseLabel', caseLabelSchema);
+const CaseLabel = mongoose.model('CaseLabel', caseLabelSchema)
 
-module.exports = CaseLabel;
+module.exports = CaseLabel

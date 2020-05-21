@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
   content: {
     type: String,
     required: true,
-    unique: true,
-  },
-});
+    unique: true
+  }
+})
 
 caseSchema.statics.findNextForUser = function (userId) {
   return this.aggregate([
@@ -17,29 +17,29 @@ caseSchema.statics.findNextForUser = function (userId) {
         from: 'caselabels',
         localField: '_id',
         foreignField: 'caseId',
-        as: 'labels',
-      },
+        as: 'labels'
+      }
     },
     {
       $match: {
         'labels.userId': {
-          $ne: mongoose.Types.ObjectId(userId),
-        },
-      },
+          $ne: mongoose.Types.ObjectId(userId)
+        }
+      }
     },
     {
-      $limit: 1,
+      $limit: 1
     },
     {
       $project: {
         _id: 0,
         id: '$_id',
-        content: 1,
-      },
-    },
-  ]);
-};
+        content: 1
+      }
+    }
+  ])
+}
 
-const Case = mongoose.model('Case', caseSchema);
+const Case = mongoose.model('Case', caseSchema)
 
-module.exports = Case;
+module.exports = Case

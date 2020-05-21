@@ -1,24 +1,24 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
-function createAuth({ tokenSecret }) {
+function createAuth ({ tokenSecret }) {
   return (req, res, next) => {
-    const authorizationHeader = req.header('Authorization');
+    const authorizationHeader = req.header('Authorization')
 
     if (!authorizationHeader) {
-      res.status(401).send();
-      return;
+      res.status(401).send()
+      return
     }
 
-    const encodedToken = authorizationHeader.replace('Bearer ', '');
+    const encodedToken = authorizationHeader.replace('Bearer ', '')
 
     try {
-      const decodedToken = jwt.verify(encodedToken, tokenSecret);
-      req.user = decodedToken;
-      next();
+      const decodedToken = jwt.verify(encodedToken, tokenSecret)
+      req.user = decodedToken
+      next()
     } catch (error) {
-      res.status(401).send();
+      res.status(401).send()
     }
-  };
+  }
 }
 
-module.exports = createAuth;
+module.exports = createAuth

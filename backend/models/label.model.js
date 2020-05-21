@@ -1,19 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const labelSchema = new Schema({
   code: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   description: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const Label = mongoose.model('Label', labelSchema);
+const Label = mongoose.model('Label', labelSchema)
 
-module.exports = Label;
+module.exports = Label

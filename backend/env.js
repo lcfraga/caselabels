@@ -1,13 +1,13 @@
-const packageJson = require('./package.json');
+const packageJson = require('./package.json')
 
-function requireFromEnv(key, defaultValue = undefined) {
+function requireFromEnv (key, defaultValue = undefined) {
   if (!process.env[key] && !defaultValue) {
-    console.error(`'[APP ERROR] Missing env variable:') ${key}`);
+    console.error(`'[APP ERROR] Missing env variable:') ${key}`)
 
-    return process.exit(1);
+    return process.exit(1)
   }
 
-  return process.env[key] || defaultValue;
+  return process.env[key] || defaultValue
 }
 
 module.exports = {
@@ -16,4 +16,4 @@ module.exports = {
   port: parseInt(requireFromEnv('PORT', 3000), 10),
   tokenSecret: requireFromEnv('TOKEN_SECRET'),
   version: packageJson.version
-};
+}
