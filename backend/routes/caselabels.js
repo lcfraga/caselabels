@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
 const CaseLabel = require('../models/caselabel.model');
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   const caseLabel = new CaseLabel({
     userId: req.user.id,
     caseId: req.body.caseId,
     label: req.body.label,
-    durationInMillis: req.body.durationInMillis,
+    durationInMillis: req.body.durationInMillis
   });
 
   await caseLabel.save((error) => {
