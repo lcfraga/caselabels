@@ -32,7 +32,7 @@ describe('GET /cases/next', () => {
         )
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body.id).to.equal('5ec0143c33e39fa6bb2bdfd1');
+          expect(res.body.id).to.be.not.empty;
           expect(res.body.content).to.startWith(
             'Patient  is an 45 year old  female.'
           );
