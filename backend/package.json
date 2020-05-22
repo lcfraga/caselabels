@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js",
-    "integration-tests": "mocha --timeout 35000 --exit test/integration/*.js",
+    "integration-tests": "mocha test/integration/*.js",
     "lint": "eslint src"
   },
   "dependencies": {
