@@ -1,6 +1,8 @@
 const express = require('express')
-const router = express.Router()
+
 const Label = require('../models/label.model')
+
+const router = express.Router()
 
 router.get('/', async (req, res) => {
   const labels = await Label.find({}, { _id: 0 }).sort({ code: 1 })

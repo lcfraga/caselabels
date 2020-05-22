@@ -1,10 +1,13 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const chaiString = require('chai-string')
-chai.use(chaiHttp)
-chai.use(chaiString)
+
 const app = require('../../app')
-const expect = chai.expect
+
+const { expect, use } = chai
+
+use(chaiHttp)
+use(chaiString)
 
 describe('GET /cases/next', function () {
   context('when token invalid', function () {

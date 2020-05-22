@@ -1,8 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../models/user.model')
 const bcrypt = require('bcryptjs')
+const express = require('express')
 const jwt = require('jsonwebtoken')
+
+const User = require('../models/user.model')
+
+const router = express.Router()
 
 router.post('/login', async (req, res) => {
   const user = await User.findOne({ email: req.body.email })

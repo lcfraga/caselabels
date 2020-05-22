@@ -1,6 +1,8 @@
 const express = require('express')
-const router = express.Router()
+
 const CaseLabel = require('../models/caselabel.model')
+
+const router = express.Router()
 
 router.post('/', async (req, res) => {
   const caseLabel = new CaseLabel({

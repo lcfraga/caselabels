@@ -1,6 +1,8 @@
 const express = require('express')
-const router = express.Router()
+
 const Case = require('../models/case.model')
+
+const router = express.Router()
 
 router.get('/next', async (req, res) => {
   const user = req.user

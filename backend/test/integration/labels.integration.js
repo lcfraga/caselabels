@@ -1,8 +1,11 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-chai.use(chaiHttp)
+
 const app = require('../../app')
-const expect = chai.expect
+
+const { expect, use } = chai
+
+use(chaiHttp)
 
 describe('GET /labels', function () {
   context('when token invalid', function () {

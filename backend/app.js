@@ -1,8 +1,15 @@
-const express = require('express')
 const cors = require('cors')
-const logger = require('morgan')
+const express = require('express')
 const mongoose = require('mongoose')
+const logger = require('morgan')
+
 const env = require('./env')
+const createAuth = require('./middleware/auth')
+const caseLabelsRouter = require('./routes/caselabels')
+const casesRouter = require('./routes/cases')
+const labelsRouter = require('./routes/labels')
+const usersRouter = require('./routes/users')
+
 const app = express()
 
 app.use(cors())
@@ -15,12 +22,6 @@ mongoose.connect(env.databaseUrl, {
   useUnifiedTopology: true
 })
 
-const usersRouter = require('./routes/users')
-const casesRouter = require('./routes/cases')
-const labelsRouter = require('./routes/labels')
-const caseLabelsRouter = require('./routes/caselabels')
-
-const createAuth = require('./middleware/auth')
 const auth = createAuth(env)
 
 app.use('/users', usersRouter)
