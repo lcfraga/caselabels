@@ -1,4 +1,4 @@
-const packageJson = require('./package.json')
+const packageJson = require('../package.json')
 
 function requireFromEnv (key, defaultValue = undefined) {
   if (!process.env[key] && !defaultValue) {

@@ -1,12 +1,11 @@
 {
   "name": "caselabels-backend",
   "version": "0.0.1",
-  "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon src/app.js",
     "integration-tests": "mocha test/integration/*.js",
-    "lint": "eslint src"
+    "lint": "eslint ."
   },
   "dependencies": {
     "bcryptjs": "~2.4.3",
