@@ -13,6 +13,7 @@ function requireFromEnv (key, defaultValue = undefined) {
 module.exports = {
   appName: requireFromEnv('APP_NAME', packageJson.name),
   databaseUrl: requireFromEnv('MONGO_URI'),
+  enableLogger: requireFromEnv('ENABLE_LOGGER', 'true') === 'true',
   port: parseInt(requireFromEnv('PORT', 3000), 10),
   tokenSecret: requireFromEnv('TOKEN_SECRET'),
   version: packageJson.version

@@ -13,8 +13,11 @@ const usersRouter = require('./routes/users')
 const app = express()
 
 app.use(cors())
-app.use(logger('dev'))
 app.use(express.json())
+
+if (env.enableLogger) {
+  app.use(logger('dev'))
+}
 
 mongoose.connect(env.databaseUrl, {
   useCreateIndex: true,
