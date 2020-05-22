@@ -5,22 +5,32 @@
     "node": true,
     "mocha": true
   },
-  "plugins": ["mocha"],
-  "extends": ["standard", "plugin:mocha/recommended"],
+  "plugins": [
+    "mocha"
+  ],
+  "extends": [
+    "standard",
+    "plugin:mocha/recommended",
+    "plugin:import/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
   "overrides": [
     {
-      "files": ["*.integration.js"],
+      "files": [
+        "*.integration.js"
+      ],
       "rules": {
         "no-unused-expressions": "off",
         "handle-callback-err": "off"
       }
     },
     {
-      "files": ["users.integration.js"],
+      "files": [
+        "users.integration.js"
+      ],
       "rules": {
         "mocha/no-setup-in-describe": "off"
       }
@@ -29,5 +39,16 @@
   "parserOptions": {
     "ecmaVersion": 11
   },
-  "rules": {}
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        },
+        "newlines-between": "always"
+      }
+    ]
+  }
 }
