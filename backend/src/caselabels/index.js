@@ -1,6 +1,6 @@
 const express = require('express')
 
-const CaseLabel = require('../models/caselabel.model')
+const CaseLabel = require('./model')
 
 const router = express.Router()
 

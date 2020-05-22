@@ -1,7 +1,14 @@
 const jwt = require('jsonwebtoken')
 
-function createAuth ({ tokenSecret }) {
+function createJwtVerifier ({ publicEndpoints, tokenSecret }) {
   return (req, res, next) => {
+    for (const endpoint of publicEndpoints) {
+      if (endpoint.matches(req)) {
+        next()
+        return
+      }
+    }
+
     const authorizationHeader = req.header('Authorization')
 
     if (!authorizationHeader) {
@@ -21,4 +28,4 @@ function createAuth ({ tokenSecret }) {
   }
 }
 
-module.exports = createAuth
+module.exports = createJwtVerifier

@@ -3,7 +3,8 @@ FROM node:lts-alpine
 WORKDIR /app
 
 COPY package.json .
-RUN npm install
+COPY package-lock.json .
+RUN npm ci
 
 COPY . .
-CMD node src/app.js
+CMD bin/start-server

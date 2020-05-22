@@ -2,9 +2,34 @@ const bcrypt = require('bcryptjs')
 const express = require('express')
 const jwt = require('jsonwebtoken')
 
-const User = require('../models/user.model')
+const User = require('./model')
 
 const router = express.Router()
+
+router.post('/', async (req, res) => {
+  const user = await User.findOne({ email: req.body.email })
+
+  if (user) {
+    res.status(409).send()
+    return
+  }
+
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
+  const newUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: hashedPassword
+  })
+
+  try {
+    await newUser.save()
+    res.status(201).send()
+  } catch (err) {
+    res.status(400).send()
+  }
+})
 
 router.post('/login', async (req, res) => {
   const user = await User.findOne({ email: req.body.email })
@@ -26,7 +51,7 @@ router.post('/login', async (req, res) => {
       id: user._id,
       name: user.name
     },
-    process.env.TOKEN_SECRET
+    process.env.TOKEN_SECRET // TODO: This should come from the env module.
   )
 
   res.send({

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const Label = require('../models/label.model')
+const Label = require('./model')
 
 const router = express.Router()
 

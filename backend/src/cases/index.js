@@ -1,6 +1,6 @@
 const express = require('express')
 
-const Case = require('../models/case.model')
+const Case = require('./model')
 
 const router = express.Router()
 
