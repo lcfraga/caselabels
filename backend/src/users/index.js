@@ -1,64 +1,75 @@
 const bcrypt = require('bcryptjs')
 const express = require('express')
-const jwt = require('jsonwebtoken')
 
 const User = require('./model')
 
-const router = express.Router()
+const tokenCookieName = 'token'
 
-router.post('/', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
+function createUsersApp (generateJwt) {
+  const router = express.Router()
 
-  if (user) {
-    res.status(409).send()
-    return
-  }
+  router.post('/', async (req, res) => {
+    const user = await User.findOne({ email: req.body.email })
 
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    if (user) {
+      res.status(409).send()
+      return
+    }
 
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: hashedPassword
+    const salt = await bcrypt.genSalt()
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
+    const newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    })
+
+    try {
+      await newUser.save()
+      res.status(201).send()
+    } catch (err) {
+      res.status(400).send()
+    }
   })
 
-  try {
-    await newUser.save()
-    res.status(201).send()
-  } catch (err) {
-    res.status(400).send()
-  }
-})
+  router.post('/login', async (req, res) => {
+    const user = await User.findOne({ email: req.body.email })
 
-router.post('/login', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
+    if (!user) {
+      res.status(401).send()
+      return
+    }
 
-  if (!user) {
-    res.status(401).send()
-    return
-  }
+    const isValidPassword = await bcrypt.compare(req.body.password, user.password)
 
-  const isValidPassword = await bcrypt.compare(req.body.password, user.password)
+    if (!isValidPassword) {
+      res.status(401).send()
+      return
+    }
 
-  if (!isValidPassword) {
-    res.status(401).send()
-    return
-  }
+    await generateJwt(res, user, tokenCookieName)
 
-  const token = jwt.sign(
-    {
+    res.send({
       id: user._id,
       name: user.name
-    },
-    process.env.TOKEN_SECRET // TODO: This should come from the env module.
-  )
-
-  res.send({
-    id: user._id,
-    name: user.name,
-    token: token
+    })
   })
-})
 
-module.exports = router
+  router.post('/logout', async (req, res) => {
+    const cookieOptions = {
+      maxAge: 0,
+      secure: false,
+      httpOnly: true
+    }
+
+    return res
+      .cookie(tokenCookieName, '', cookieOptions)
+      .status(200)
+      .send()
+  })
+
+  return router
+}
+
+module.exports = createUsersApp

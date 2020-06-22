@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-function createJwtVerifier ({ publicEndpoints, tokenSecret }) {
+function createJwtVerifier ({ publicEndpoints, jwtPublicKey, jwtAlgorithm, jwtIssuer, jwtAudience }) {
   return (req, res, next) => {
     for (const endpoint of publicEndpoints) {
       if (endpoint.matches(req)) {
@@ -9,17 +9,16 @@ function createJwtVerifier ({ publicEndpoints, tokenSecret }) {
       }
     }
 
-    const authorizationHeader = req.header('Authorization')
+    const encodedToken = req.cookies.token || ''
 
-    if (!authorizationHeader) {
-      res.status(401).send()
-      return
+    const verifyOptions = {
+      algorithms: [jwtAlgorithm],
+      issuer: jwtIssuer,
+      audience: jwtAudience
     }
 
-    const encodedToken = authorizationHeader.replace('Bearer ', '')
-
     try {
-      const decodedToken = jwt.verify(encodedToken, tokenSecret)
+      const decodedToken = jwt.verify(encodedToken, jwtPublicKey, verifyOptions)
       req.user = decodedToken
       next()
     } catch (error) {

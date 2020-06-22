@@ -27,6 +27,10 @@ module.exports = {
   enableLogger: requireFromEnv('ENABLE_LOGGER', 'true') === 'true',
   port: parseInt(requireFromEnv('PORT', 3000), 10),
   publicEndpoints: [new Endpoint({ method: 'POST', path: '/users/login' })],
-  tokenSecret: requireFromEnv('TOKEN_SECRET'),
+  jwtIssuer: requireFromEnv('JWT_ISSUER', 'caselabels.io'),
+  jwtAudience: requireFromEnv('JWT_AUDIENCE', 'caselabels-ui'),
+  jwtAlgorithm: requireFromEnv('JWT_ALGORITHM', 'RS256'),
+  jwtPublicKey: requireFromEnv('JWT_PUBLIC_KEY'),
+  jwtPrivateKey: requireFromEnv('JWT_PRIVATE_KEY'),
   version: packageJson.version
 }

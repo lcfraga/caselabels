@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const express = require('express')
 const logger = require('morgan')
@@ -6,7 +7,13 @@ const createJwtVerifier = require('./jwt-verifier')
 const setRequestContext = require('./set-request-context')
 
 function mountMiddleware (app, env) {
-  app.use(cors())
+  app.use(cookieParser())
+
+  app.use(cors({
+    origin: true,
+    credentials: true
+  }))
+
   app.use(express.json())
 
   if (env.enableLogger) {
