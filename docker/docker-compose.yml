@@ -15,6 +15,7 @@ services:
   backend:
     image: caselabels-backend:latest
     environment:
+      CORS_ORIGINS: http://localhost
       MONGO_URI: mongodb://caselabels:caselabels@mongo:27017/caselabels
       JWT_PUBLIC_KEY: |-
         -----BEGIN PUBLIC KEY-----
