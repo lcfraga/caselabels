@@ -10,7 +10,7 @@ function mountMiddleware (app, env) {
   app.use(cookieParser())
 
   app.use(cors({
-    origin: true,
+    origin: env.corsOrigins,
     credentials: true
   }))
 

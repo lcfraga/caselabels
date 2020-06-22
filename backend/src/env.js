@@ -10,6 +10,10 @@ function requireFromEnv (key, defaultValue = undefined) {
   return process.env[key] || defaultValue
 }
 
+function parseCsv (csv) {
+  return csv.split(',').map(x => x.trim())
+}
+
 class Endpoint {
   constructor ({ method, path }) {
     this.method = method
@@ -23,6 +27,7 @@ class Endpoint {
 
 module.exports = {
   appName: requireFromEnv('APP_NAME', packageJson.name),
+  corsOrigins: parseCsv(requireFromEnv('CORS_ORIGINS', 'http://localhost')),
   databaseUrl: requireFromEnv('MONGO_URI'),
   enableLogger: requireFromEnv('ENABLE_LOGGER', 'true') === 'true',
   port: parseInt(requireFromEnv('PORT', 3000), 10),
