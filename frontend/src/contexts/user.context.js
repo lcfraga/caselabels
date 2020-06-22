@@ -5,34 +5,17 @@ import CONFIG from '../config';
 export const UserContext = createContext();
 
 class UserContextProvider extends Component {
-  state = {
-    loggedIn: false,
-    id: null,
-    name: null,
-    error: '',
-  };
+  constructor(props) {
+    super(props)
 
-  setAuthorizationHeader(token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
-
-  componentDidMount() {
-    const userJson = localStorage.getItem('user');
-
-    if (!userJson) {
-      return;
-    }
-
-    const user = JSON.parse(userJson);
-
-    this.setState({
-      loggedIn: true,
-      id: user.id,
-      name: user.name,
+    this.state = {
+      loggedIn: false,
+      id: null,
+      name: null,
       error: '',
-    });
+    };
 
-    this.setAuthorizationHeader(user.token);
+    axios.defaults.withCredentials = true
   }
 
   logIn(email, password) {
@@ -45,13 +28,8 @@ class UserContextProvider extends Component {
           name: response.data.name,
           error: '',
         });
-
-        const userJson = JSON.stringify(response.data);
-        localStorage.setItem('user', userJson);
-
-        this.setAuthorizationHeader(response.data.token);
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           loggedIn: false,
           id: null,
@@ -62,16 +40,24 @@ class UserContextProvider extends Component {
   }
 
   logOut() {
-    this.setState({
-      loggedIn: false,
-      id: null,
-      name: null,
-      error: '',
-    });
-
-    localStorage.removeItem('user');
-
-    this.setAuthorizationHeader('');
+    axios
+      .post(`${CONFIG.BACKEND_API_URL}/users/logout`)
+      .then(() => {
+        this.setState({
+          loggedIn: false,
+          id: null,
+          name: null,
+          error: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          loggedIn: false,
+          id: null,
+          name: null,
+          error: 'Logout failed.',
+        });
+      });
   }
 
   render() {

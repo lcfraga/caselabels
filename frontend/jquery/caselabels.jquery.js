@@ -3,15 +3,17 @@ const BACKEND_API_URL = 'http://localhost/api';
 class CaseLabelsBackend {
   constructor(apiUrl) {
     this.apiUrl = apiUrl;
-    this.setAuthorizationHeader();
+    this.setupAjax();
   }
 
-  setAuthorizationHeader(value = '') {
+  setupAjax() {
     $.ajaxSetup({
-      beforeSend: (xhr) => {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Authorization', value);
+      headers: {
+        'Content-Type': 'application/json'
       },
+      xhrFields: {
+        withCredentials: true
+      }
     });
   }
 
@@ -19,6 +21,12 @@ class CaseLabelsBackend {
     const dataJson = JSON.stringify(data);
 
     $.post(`${this.apiUrl}/users/login`, dataJson, null, 'json')
+      .done(onDone)
+      .fail(onFail);
+  }
+
+  postLogOut(onDone, onFail) {
+    $.post(`${this.apiUrl}/users/logout`)
       .done(onDone)
       .fail(onFail);
   }
@@ -50,18 +58,6 @@ class CaseLabelsApp {
     this.nextCase = {};
     this.label = null;
     this.startedAt = new Date();
-    this.bypassLogin();
-  }
-
-  bypassLogin() {
-    const userJson = localStorage.getItem('jUser');
-
-    if (!userJson) {
-      return;
-    }
-
-    const user = JSON.parse(userJson);
-    this.onLogInSuccess(user);
   }
 
   handleLogIn() {
@@ -93,9 +89,10 @@ class CaseLabelsApp {
   }
 
   logOut() {
-    this.backend.setAuthorizationHeader();
-
-    localStorage.removeItem('jUser');
+    this.backend.postLogOut(
+      () => console.log('Log out succeeded.'),
+      () => console.error('Log out failed.')
+    )
   }
 
   getLabels() {
@@ -125,11 +122,6 @@ class CaseLabelsApp {
   onLogInSuccess(user) {
     this.loginFormController.onLogInSuccess();
     this.caseLabelFormController.onLogIn(user);
-    this.backend.setAuthorizationHeader(`Bearer ${user.token}`);
-
-    const userJson = JSON.stringify(user);
-
-    localStorage.setItem('jUser', userJson);
 
     this.getLabels();
   }
@@ -315,9 +307,6 @@ class CaseLabelFormView {
   }
 
   getData() {
-    // const caseId;
-    // const label;
-    // const duration;
     const email = this.$formContainer.find('input#email').val();
     const password = this.$formContainer.find('input#password').val();
     return { email, password };
