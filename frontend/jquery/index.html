@@ -1,149 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Case labels (jQuery)</title>
 
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <script src="jquery-3.5.1.min.js"></script>
-    <script src="caselabels.jquery.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="img-src 'self'; script-src 'self'; style-src 'self'">
+  <title>Case labels (jQuery)</title>
 
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-      <div id="login" class="container">
-        <div class="row">
-          <div
-            class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4"
-          >
-            <h1>Case labels (jQuery)</h1>
-            <div class="px-2">
-              <form id="login-form">
-                <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Email"
-                    id="email"
-                    name="email"
-                  />
-                </div>
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <script src="jquery-3.5.1.min.js"></script>
+  <script src="caselabels.jquery.js"></script>
+</head>
 
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Password"
-                    id="password"
-                    name="password"
-                  />
-                </div>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
 
-                <button type="submit" class="btn btn-primary">
-                  Log in
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+  <div id="root">
+    <div id="login" class="container">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+          <h1>Case labels (jQuery)</h1>
 
-        <div id="login-error" class="row">
-          <div
-            class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4"
-          >
-            <div class="px-2">
-              <div class="alert alert-danger" role="alert">
-                Login failed. Please try again.
+          <div class="px-2">
+            <form id="login-form">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" id="email" name="email" />
               </div>
-            </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Log in
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-      <div id="caselabel" class="container">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <span id="caselabel-user" class="navbar-text"></span>
-              </li>
-              <li class="nav-item">
-                <button
-                  id="logout-button"
-                  type="button"
-                  class="btn btn-link nav-link"
-                >
-                  Log out
-                </button>
-              </li>
-            </ul>
-          </nav>
-          <form id="caselabel-form">
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="case">Please review this case:</label>
-                  <textarea
-                    class="form-control form-control-sm"
-                    id="caselabel-case"
-                    rows="20"
-                    readonly
-                  >
-                  </textarea>
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="form-group">
-                  <label for="label">Select condition:</label>
-                  <select
-                    class="form-control form-control-sm"
-                    id="caselabel-label"
-                    size="15"
-                  >
-                  </select>
-                </div>
-              </div>
+      <div id="login-error" class="row">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+          <div class="px-2">
+            <div class="alert alert-danger" role="alert">
+              Login failed. Please try again.
             </div>
-
-            <div class="row justify-content-end">
-              <div class="col"></div>
-              <div class="col">
-                <button
-                  id="caselabel-submit"
-                  type="submit"
-                  class="btn btn-primary"
-                  disabled
-                >
-                  Next case
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <div id="caselabel-error" class="row">
-            <div
-              class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4"
-            >
-              <div class="px-2">
-                <div
-                  id="caselabel-error-message"
-                  class="alert alert-danger"
-                  role="alert"
-                >
-                  Something went wrong.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div id="caselabel-done" class="alert alert-primary" role="alert">
-            You're done.
           </div>
         </div>
       </div>
     </div>
-  </body>
+
+    <div id="caselabel" class="container">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <span id="caselabel-user" class="navbar-text"></span>
+            </li>
+
+            <li class="nav-item">
+              <button id="logout-button" type="button" class="btn btn-link nav-link">
+                Log out
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <form id="caselabel-form">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="case">Please review this case:</label>
+                <textarea class="form-control form-control-sm" id="caselabel-case" rows="20" readonly>
+                  </textarea>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="label">Select condition:</label>
+                <select class="form-control form-control-sm" id="caselabel-label" size="15">
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-end">
+            <div class="col"></div>
+            <div class="col">
+              <button id="caselabel-submit" type="submit" class="btn btn-primary" disabled>
+                Next case
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div id="caselabel-error" class="row">
+          <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+            <div class="px-2">
+              <div id="caselabel-error-message" class="alert alert-danger" role="alert">
+                Something went wrong.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="caselabel-done" class="alert alert-primary" role="alert">
+          You're done.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

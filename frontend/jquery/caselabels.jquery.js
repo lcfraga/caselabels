@@ -9,6 +9,7 @@ class CaseLabelsBackend {
   setupAjax() {
     $.ajaxSetup({
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       xhrFields: {
