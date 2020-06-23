@@ -12,7 +12,7 @@ function createUsersApp (generateJwt) {
     const user = await User.findOne({ email: req.body.email })
 
     if (user) {
-      res.status(409).send()
+      res.status(409).end()
       return
     }
 
@@ -27,9 +27,9 @@ function createUsersApp (generateJwt) {
 
     try {
       await newUser.save()
-      res.status(201).send()
+      res.status(201).end()
     } catch (err) {
-      res.status(400).send()
+      res.status(400).end()
     }
   })
 
@@ -37,14 +37,14 @@ function createUsersApp (generateJwt) {
     const user = await User.findOne({ email: req.body.email })
 
     if (!user) {
-      res.status(401).send()
+      res.status(401).end()
       return
     }
 
     const isValidPassword = await bcrypt.compare(req.body.password, user.password)
 
     if (!isValidPassword) {
-      res.status(401).send()
+      res.status(401).end()
       return
     }
 
@@ -66,7 +66,7 @@ function createUsersApp (generateJwt) {
     return res
       .cookie(tokenCookieName, '', cookieOptions)
       .status(200)
-      .send()
+      .end()
   })
 
   return router

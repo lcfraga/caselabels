@@ -9,7 +9,7 @@ router.get('/next', async (req, res) => {
   const nextCases = await Case.findNextForUser(user.id)
 
   if (nextCases.length === 0) {
-    res.status(404).send()
+    res.status(404).end()
   } else {
     res.send(nextCases[0])
   }

@@ -10,7 +10,7 @@ function createExpressApp ({ config, env }) {
   mountRoutes(app, config)
 
   app.use((req, res, next) =>
-    res.status(404).send()
+    res.status(404).end()
   )
 
   return app

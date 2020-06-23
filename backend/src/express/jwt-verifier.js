@@ -22,7 +22,7 @@ function createJwtVerifier ({ publicEndpoints, jwtPublicKey, jwtAlgorithm, jwtIs
       req.user = decodedToken
       next()
     } catch (error) {
-      res.status(401).send()
+      res.status(401).end()
     }
   }
 }

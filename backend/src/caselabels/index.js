@@ -14,20 +14,20 @@ router.post('/', async (req, res) => {
 
   await caseLabel.save((error) => {
     if (!error) {
-      res.status(201).send()
+      res.status(201).end()
       return
     }
 
     if (error.code && error.code === 11000) {
-      res.status(409).send()
+      res.status(409).end()
       return
     }
 
     if (error.errors) {
-      res.status(400).send()
+      res.status(400).end()
     }
 
-    res.status(500).send()
+    res.status(500).end()
   })
 })
 
