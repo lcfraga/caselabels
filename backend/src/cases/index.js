@@ -11,7 +11,7 @@ router.get('/next', async (req, res) => {
   if (nextCases.length === 0) {
     res.status(404).end()
   } else {
-    res.send(nextCases[0])
+    res.json(nextCases[0])
   }
 })
 

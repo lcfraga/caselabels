@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   const labels = await Label.find({}, { _id: 0 }).sort({ code: 1 })
 
-  res.send(labels)
+  res.json(labels)
 })
 
 module.exports = router

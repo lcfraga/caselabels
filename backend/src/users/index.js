@@ -50,7 +50,7 @@ function createUsersApp (generateJwt) {
 
     await generateJwt(res, user, tokenCookieName)
 
-    res.send({
+    res.json({
       id: user._id,
       name: user.name
     })
