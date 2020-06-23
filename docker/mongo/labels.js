@@ -1,635 +1,499 @@
 db.labels.save({
-  code: 'A09',
-  description: 'Infectious gastroenteritis and colitis, unspecified',
+  code: 'HIN',
+  description: 'haptic IB program synthesizing',
 });
 
 db.labels.save({
-  code: 'A64',
-  description: 'Unspecified sexually transmitted disease',
+  code: 'WFM',
+  description: 'online PCI transmitter connecting',
 });
 
 db.labels.save({
-  code: 'B300',
-  description: 'Keratoconjunctivitis due to adenovirus',
+  code: '4ZG',
+  description: 'neural SAS microchip navigating',
 });
 
 db.labels.save({
-  code: 'B302',
-  description: 'Viral pharyngoconjunctivitis',
+  code: 'YGW',
+  description: 'optical PCI hard drive calculating',
 });
 
 db.labels.save({
-  code: 'B308',
-  description: 'Other viral conjunctivitis',
+  code: 'LKU',
+  description: 'neural SCSI microchip programming',
 });
 
 db.labels.save({
-  code: 'B309',
-  description: 'Viral conjunctivitis, unspecified',
+  code: 'ZOO',
+  description: 'open-source JSON transmitter parsing',
 });
 
 db.labels.save({
-  code: 'B373',
-  description: 'Candidiasis of vulva and vagina',
+  code: 'GQW',
+  description: 'open-source SSL circuit parsing',
 });
 
 db.labels.save({
-  code: 'B9789',
-  description:
-    'Other viral agents as the cause of diseases classified elsewhere',
+  code: 'XN3',
+  description: 'digital PNG array compressing',
 });
 
 db.labels.save({
-  code: 'E860',
-  description: 'Dehydration',
+  code: '0U8',
+  description: 'optical SSL bandwidth backing up',
 });
 
 db.labels.save({
-  code: 'F340',
-  description: 'Cyclothymic disorder',
+  code: '4UZ',
+  description: 'online PCI panel indexing',
 });
 
 db.labels.save({
-  code: 'F341',
-  description: 'Dysthymic disorder',
+  code: 'CUI',
+  description: 'haptic AI driver backing up',
 });
 
 db.labels.save({
-  code: 'F39',
-  description: 'Unspecified mood [affective] disorder',
+  code: 'QG2',
+  description: 'redundant JBOD microchip quantifying',
 });
 
 db.labels.save({
-  code: 'F411',
-  description: 'Generalized anxiety disorder',
+  code: 'QYV',
+  description: 'digital ADP capacitor quantifying',
 });
 
 db.labels.save({
-  code: 'F418',
-  description: 'Other specified anxiety disorders',
+  code: '5HL',
+  description: 'auxiliary THX port synthesizing',
 });
 
 db.labels.save({
-  code: 'F419',
-  description: 'Anxiety disorder, unspecified',
+  code: 'DAC',
+  description: '1080p RSS protocol backing up',
 });
 
 db.labels.save({
-  code: 'F4321',
-  description: 'Adjustment disorder with depressed mood',
+  code: 'QZS',
+  description: 'open-source HDD transmitter transmitting',
 });
 
 db.labels.save({
-  code: 'G43001',
-  description:
-    'Migraine without aura, not intractable, with status migrainosus',
+  code: 'KK5',
+  description: 'cross-platform USB card copying',
 });
 
 db.labels.save({
-  code: 'G43009',
-  description:
-    'Migraine without aura, not intractable, without status migrainosus',
+  code: 'JIX',
+  description: 'virtual IB application connecting',
 });
 
 db.labels.save({
-  code: 'G43019',
-  description: 'Migraine without aura, intractable, without status migrainosus',
+  code: 'YMB',
+  description: 'solid state XML circuit navigating',
 });
 
 db.labels.save({
-  code: 'G43501',
-  description:
-    'Persistent migraine aura without cerebral infarction, not intractable, with status migrainosus',
+  code: 'VII',
+  description: 'online GB bus programming',
 });
 
 db.labels.save({
-  code: 'G43509',
-  description:
-    'Persistent migraine aura without cerebral infarction, not intractable, without status migrainosus',
+  code: 'KZL',
+  description: 'multi-byte SAS panel connecting',
 });
 
 db.labels.save({
-  code: 'G43519',
-  description:
-    'Persistent migraine aura without cerebral infarction, intractable, without status migrainosus',
+  code: 'W2Y',
+  description: 'primary PCI bandwidth copying',
 });
 
 db.labels.save({
-  code: 'G43701',
-  description:
-    'Chronic migraine without aura, not intractable, with status migrainosus',
+  code: 'Q9Z',
+  description: 'optical IB matrix transmitting',
 });
 
 db.labels.save({
-  code: 'G43709',
-  description:
-    'Chronic migraine without aura, not intractable, without status migrainosus',
+  code: 'DEO',
+  description: 'wireless TCP monitor navigating',
 });
 
 db.labels.save({
-  code: 'G43711',
-  description:
-    'Chronic migraine without aura, intractable, with status migrainosus',
+  code: 'ANT',
+  description: 'digital IB program synthesizing',
 });
 
 db.labels.save({
-  code: 'G43719',
-  description:
-    'Chronic migraine without aura, intractable, without status migrainosus',
+  code: 'QSS',
+  description: 'open-source SSL driver calculating',
 });
 
 db.labels.save({
-  code: 'G43809',
-  description: 'Other migraine, not intractable, without status migrainosus',
+  code: 'VKB',
+  description: 'digital JSON monitor navigating',
 });
 
 db.labels.save({
-  code: 'G43811',
-  description: 'Other migraine, intractable, with status migrainosus',
+  code: 'JAZ',
+  description: 'back-end EXE card connecting',
 });
 
 db.labels.save({
-  code: 'G43819',
-  description: 'Other migraine, intractable, without status migrainosus',
+  code: 'SJE',
+  description: 'haptic HDD protocol synthesizing',
 });
 
 db.labels.save({
-  code: 'G43829',
-  description:
-    'Menstrual migraine, not intractable, without status migrainosus',
+  code: 'PVZ',
+  description: 'multi-byte JBOD application indexing',
 });
 
 db.labels.save({
-  code: 'G43909',
-  description:
-    'Migraine, unspecified, not intractable, without status migrainosus',
+  code: 'HOG',
+  description: 'optical PCI capacitor transmitting',
 });
 
 db.labels.save({
-  code: 'G43911',
-  description: 'Migraine, unspecified, intractable, with status migrainosus',
+  code: 'OY3',
+  description: 'mobile SCSI transmitter backing up',
 });
 
 db.labels.save({
-  code: 'G43919',
-  description: 'Migraine, unspecified, intractable, without status migrainosus',
+  code: 'UXT',
+  description: 'back-end SCSI card parsing',
 });
 
 db.labels.save({
-  code: 'G44209',
-  description: 'Tension-type headache, unspecified, not intractable',
+  code: 'UT2',
+  description: 'online AI panel quantifying',
 });
 
 db.labels.save({
-  code: 'G44219',
-  description: 'Episodic tension-type headache, not intractable',
+  code: 'DKK',
+  description: 'auxiliary TCP circuit quantifying',
 });
 
 db.labels.save({
-  code: 'G4700',
-  description: 'Insomnia, unspecified',
+  code: 'UHT',
+  description: '1080p RSS array backing up',
 });
 
 db.labels.save({
-  code: 'G4701',
-  description: 'Insomnia due to medical condition',
+  code: 'SUZ',
+  description: 'back-end ADP circuit transmitting',
 });
 
 db.labels.save({
-  code: 'G5600',
-  description: 'Carpal tunnel syndrome, unspecified upper limb',
+  code: 'CKL',
+  description: 'redundant RAM bandwidth copying',
 });
 
 db.labels.save({
-  code: 'H10029',
-  description: 'Other mucopurulent conjunctivitis, unspecified eye',
+  code: '56I',
+  description: 'back-end CSS circuit navigating',
 });
 
 db.labels.save({
-  code: 'H1033',
-  description: 'Unspecified acute conjunctivitis, bilateral',
+  code: '50Z',
+  description: 'neural SQL port calculating',
 });
 
 db.labels.save({
-  code: 'H1044',
-  description: 'Vernal conjunctivitis',
+  code: 'XVF',
+  description: 'solid state SSL microchip quantifying',
 });
 
 db.labels.save({
-  code: 'H1045',
-  description: 'Other chronic allergic conjunctivitis',
+  code: 'ZPA',
+  description: 'online SDD matrix hacking',
 });
 
 db.labels.save({
-  code: 'H10509',
-  description: 'Unspecified blepharoconjunctivitis, unspecified eye',
+  code: 'SFY',
+  description: 'multi-byte XML interface parsing',
 });
 
 db.labels.save({
-  code: 'H10819',
-  description: 'Pingueculitis, unspecified eye',
+  code: 'AOW',
+  description: 'online XSS interface hacking',
 });
 
 db.labels.save({
-  code: 'H1089',
-  description: 'Other conjunctivitis',
+  code: 'YWY',
+  description: 'virtual CSS sensor copying',
 });
 
 db.labels.save({
-  code: 'H109',
-  description: 'Unspecified conjunctivitis',
+  code: '4V0',
+  description: 'solid state FTP circuit programming',
 });
 
 db.labels.save({
-  code: 'H6020',
-  description: 'Malignant otitis externa, unspecified ear',
+  code: 'C0F',
+  description: 'neural XSS program generating',
 });
 
 db.labels.save({
-  code: 'H60339',
-  description: "Swimmer's ear, unspecified ear",
+  code: 'LD9',
+  description: 'cross-platform RSS system calculating',
 });
 
 db.labels.save({
-  code: 'H60399',
-  description: 'Other infective otitis externa, unspecified ear',
+  code: '8NC',
+  description: 'open-source RSS bus synthesizing',
 });
 
 db.labels.save({
-  code: 'H6500',
-  description: 'Acute serous otitis media, unspecified ear',
+  code: 'JUI',
+  description: 'mobile IB hard drive hacking',
 });
 
 db.labels.save({
-  code: 'H65119',
-  description:
-    'Acute and subacute allergic otitis media (mucoid) (sanguinous) (serous), unspecified ear',
+  code: 'V75',
+  description: 'wireless RSS program bypassing',
 });
 
 db.labels.save({
-  code: 'H65199',
-  description: 'Other acute nonsuppurative otitis media, unspecified ear',
+  code: 'SP4',
+  description: 'wireless PCI port bypassing',
 });
 
 db.labels.save({
-  code: 'H6520',
-  description: 'Chronic serous otitis media, unspecified ear',
+  code: 'UUN',
+  description: 'virtual XSS array indexing',
 });
 
 db.labels.save({
-  code: 'H65499',
-  description: 'Other chronic nonsuppurative otitis media, unspecified ear',
+  code: 'Z2F',
+  description: 'mobile COM driver bypassing',
 });
 
 db.labels.save({
-  code: 'H6590',
-  description: 'Unspecified nonsuppurative otitis media, unspecified ear',
+  code: 'DDM',
+  description: 'virtual USB program connecting',
 });
 
 db.labels.save({
-  code: 'H66009',
-  description:
-    'Acute suppurative otitis media without spontaneous rupture of ear drum, unspecified ear',
+  code: 'A0X',
+  description: 'primary SSL sensor quantifying',
 });
 
 db.labels.save({
-  code: 'H66019',
-  description:
-    'Acute suppurative otitis media with spontaneous rupture of ear drum, unspecified ear',
+  code: 'Z7V',
+  description: 'neural EXE microchip parsing',
 });
 
 db.labels.save({
-  code: 'H663X9',
-  description: 'Other chronic suppurative otitis media, unspecified ear',
+  code: 'DJ4',
+  description: 'multi-byte GB firewall copying',
 });
 
 db.labels.save({
-  code: 'H6640',
-  description: 'Suppurative otitis media, unspecified, unspecified ear',
+  code: 'A80',
+  description: 'redundant HDD hard drive generating',
 });
 
 db.labels.save({
-  code: 'H6690',
-  description: 'Otitis media, unspecified, unspecified ear',
+  code: 'LWU',
+  description: 'mobile SMS matrix quantifying',
 });
 
 db.labels.save({
-  code: 'J00',
-  description: 'Acute nasopharyngitis [common cold]',
+  code: 'H9O',
+  description: 'haptic JBOD pixel synthesizing',
 });
 
 db.labels.save({
-  code: 'J0100',
-  description: 'Acute maxillary sinusitis, unspecified',
+  code: 'ERN',
+  description: 'mobile RSS capacitor quantifying',
 });
 
 db.labels.save({
-  code: 'J0110',
-  description: 'Acute frontal sinusitis, unspecified',
+  code: 'GUP',
+  description: 'wireless CSS port copying',
 });
 
 db.labels.save({
-  code: 'J0130',
-  description: 'Acute sphenoidal sinusitis, unspecified',
+  code: 'PYJ',
+  description: 'solid state IB capacitor transmitting',
 });
 
 db.labels.save({
-  code: 'J0140',
-  description: 'Acute pansinusitis, unspecified',
+  code: 'B3F',
+  description: 'back-end JSON capacitor copying',
 });
 
 db.labels.save({
-  code: 'J0190',
-  description: 'Acute sinusitis, unspecified',
+  code: 'SHR',
+  description: 'bluetooth HDD system indexing',
 });
 
 db.labels.save({
-  code: 'J029',
-  description: 'Acute pharyngitis, unspecified',
+  code: 'VOW',
+  description: 'online JSON system bypassing',
 });
 
 db.labels.save({
-  code: 'J060',
-  description: 'Acute laryngopharyngitis',
+  code: 'D6J',
+  description: 'virtual PCI pixel overriding',
 });
 
 db.labels.save({
-  code: 'J069',
-  description: 'Acute upper respiratory infection, unspecified',
+  code: 'GZJ',
+  description: 'mobile AI microchip bypassing',
 });
 
 db.labels.save({
-  code: 'J209',
-  description: 'Acute bronchitis, unspecified',
+  code: 'AUV',
+  description: 'auxiliary AGP pixel programming',
 });
 
 db.labels.save({
-  code: 'J301',
-  description: 'Allergic rhinitis due to pollen',
+  code: 'NYS',
+  description: 'cross-platform COM matrix transmitting',
 });
 
 db.labels.save({
-  code: 'J3081',
-  description: 'Allergic rhinitis due to animal (cat) (dog) hair and dander',
+  code: 'VIO',
+  description: 'online THX microchip copying',
 });
 
 db.labels.save({
-  code: 'J36',
-  description: 'Peritonsillar abscess',
+  code: 'AAV',
+  description: 'bluetooth RSS transmitter copying',
 });
 
 db.labels.save({
-  code: 'J40',
-  description: 'Bronchitis, not specified as acute or chronic',
+  code: 'CNM',
+  description: 'digital RSS firewall overriding',
 });
 
 db.labels.save({
-  code: 'J411',
-  description: 'Mucopurulent chronic bronchitis',
+  code: 'SGQ',
+  description: 'online GB application transmitting',
 });
 
 db.labels.save({
-  code: 'J42',
-  description: 'Unspecified chronic bronchitis',
+  code: 'YFP',
+  description: 'back-end SCSI port navigating',
 });
 
 db.labels.save({
-  code: 'J45901',
-  description: 'Unspecified asthma with (acute) exacerbation',
+  code: 'DTB',
+  description: 'open-source XSS program programming',
 });
 
 db.labels.save({
-  code: 'J45902',
-  description: 'Unspecified asthma with status asthmaticus',
+  code: 'NAR',
+  description: 'wireless HDD protocol parsing',
 });
 
 db.labels.save({
-  code: 'K210',
-  description: 'Gastro-esophageal reflux disease with esophagitis',
+  code: 'ADW',
+  description: 'online GB firewall quantifying',
 });
 
 db.labels.save({
-  code: 'K219',
-  description: 'Gastro-esophageal reflux disease without esophagitis',
+  code: 'XX1',
+  description: 'virtual PCI bandwidth indexing',
 });
 
 db.labels.save({
-  code: 'K2900',
-  description: 'Acute gastritis without bleeding',
+  code: 'PZZ',
+  description: 'open-source ADP circuit quantifying',
 });
 
 db.labels.save({
-  code: 'K2920',
-  description: 'Alcoholic gastritis without bleeding',
+  code: 'J9L',
+  description: 'primary XML microchip backing up',
 });
 
 db.labels.save({
-  code: 'K2960',
-  description: 'Other gastritis without bleeding',
+  code: 'Y1T',
+  description: 'mobile SAS hard drive bypassing',
 });
 
 db.labels.save({
-  code: 'K5900',
-  description: 'Constipation, unspecified',
+  code: '2CP',
+  description: 'digital SMS alarm navigating',
 });
 
 db.labels.save({
-  code: 'K5901',
-  description: 'Slow transit constipation',
+  code: 'GB4',
+  description: 'digital AGP program quantifying',
 });
 
 db.labels.save({
-  code: 'K5902',
-  description: 'Outlet dysfunction constipation',
+  code: 'POX',
+  description: 'redundant COM application indexing',
 });
 
 db.labels.save({
-  code: 'K649',
-  description: 'Unspecified hemorrhoids',
+  code: 'QA4',
+  description: 'virtual XSS protocol calculating',
 });
 
 db.labels.save({
-  code: 'K8019',
-  description:
-    'Calculus of gallbladder with other cholecystitis with obstruction',
+  code: 'BD9',
+  description: 'multi-byte RSS application indexing',
 });
 
 db.labels.save({
-  code: 'K8020',
-  description:
-    'Calculus of gallbladder without cholecystitis without obstruction',
+  code: 'YBR',
+  description: 'solid state COM hard drive programming',
 });
 
 db.labels.save({
-  code: 'K8021',
-  description: 'Calculus of gallbladder without cholecystitis with obstruction',
+  code: 'Z77',
+  description: 'auxiliary JBOD monitor navigating',
 });
 
 db.labels.save({
-  code: 'K8042',
-  description:
-    'Calculus of bile duct with acute cholecystitis without obstruction',
+  code: 'FRK',
+  description: 'digital SQL bandwidth quantifying',
 });
 
 db.labels.save({
-  code: 'K8050',
-  description:
-    'Calculus of bile duct without cholangitis or cholecystitis without obstruction',
+  code: 'JUG',
+  description: 'haptic RAM driver bypassing',
 });
 
 db.labels.save({
-  code: 'K8051',
-  description:
-    'Calculus of bile duct without cholangitis or cholecystitis with obstruction',
+  code: 'IAF',
+  description: 'mobile XML protocol synthesizing',
 });
 
 db.labels.save({
-  code: 'L240',
-  description: 'Irritant contact dermatitis due to detergents',
+  code: '46S',
+  description: 'open-source XSS protocol connecting',
 });
 
 db.labels.save({
-  code: 'L242',
-  description: 'Irritant contact dermatitis due to solvents',
+  code: 'JUA',
+  description: 'primary FTP bandwidth transmitting',
 });
 
 db.labels.save({
-  code: 'L250',
-  description: 'Unspecified contact dermatitis due to cosmetics',
+  code: 'RD9',
+  description: 'open-source HTTP system navigating',
 });
 
 db.labels.save({
-  code: 'L251',
-  description:
-    'Unspecified contact dermatitis due to drugs in contact with skin',
+  code: 'QES',
+  description: 'back-end RSS circuit quantifying',
 });
 
 db.labels.save({
-  code: 'L253',
-  description: 'Unspecified contact dermatitis due to other chemical products',
+  code: 'JDM',
+  description: 'online XSS microchip generating',
 });
 
 db.labels.save({
-  code: 'L255',
-  description: 'Unspecified contact dermatitis due to plants, except food',
+  code: 'JYC',
+  description: 'bluetooth SCSI matrix programming',
 });
 
 db.labels.save({
-  code: 'L259',
-  description: 'Unspecified contact dermatitis, unspecified cause',
-});
-
-db.labels.save({
-  code: 'M25539',
-  description: 'Pain in unspecified wrist',
-});
-
-db.labels.save({
-  code: 'M5430',
-  description: 'Sciatica, unspecified side',
-});
-
-db.labels.save({
-  code: 'N730',
-  description: 'Acute parametritis and pelvic cellulitis',
-});
-
-db.labels.save({
-  code: 'N733',
-  description: 'Female acute pelvic peritonitis',
-});
-
-db.labels.save({
-  code: 'N739',
-  description: 'Female pelvic inflammatory disease, unspecified',
-});
-
-db.labels.save({
-  code: 'N912',
-  description: 'Amenorrhea, unspecified',
-});
-
-db.labels.save({
-  code: 'N920',
-  description: 'Excessive and frequent menstruation with regular cycle',
-});
-
-db.labels.save({
-  code: 'N921',
-  description: 'Excessive and frequent menstruation with irregular cycle',
-});
-
-db.labels.save({
-  code: 'N924',
-  description: 'Excessive bleeding in the premenopausal period',
-});
-
-db.labels.save({
-  code: 'N930',
-  description: 'Postcoital and contact bleeding',
-});
-
-db.labels.save({
-  code: 'N946',
-  description: 'Dysmenorrhea, unspecified',
-});
-
-db.labels.save({
-  code: 'R079',
-  description: 'Chest pain, unspecified',
-});
-
-db.labels.save({
-  code: 'R109',
-  description: 'Unspecified abdominal pain',
-});
-
-db.labels.save({
-  code: 'R21',
-  description: 'Rash and other nonspecific skin eruption',
-});
-
-db.labels.save({
-  code: 'R42',
-  description: 'Dizziness and giddiness',
-});
-
-db.labels.save({
-  code: 'S53449A',
-  description:
-    'Ulnar collateral ligament sprain of unspecified elbow, initial encounter',
-});
-
-db.labels.save({
-  code: 'S63519A',
-  description: 'Sprain of carpal joint of unspecified wrist, initial encounter',
-});
-
-db.labels.save({
-  code: 'S63599A',
-  description: 'Other specified sprain of unspecified wrist, initial encounter',
-});
-
-db.labels.save({
-  code: 'S638X9A',
-  description:
-    'Sprain of other part of unspecified wrist and hand, initial encounter',
-});
-
-db.labels.save({
-  code: 'S93419A',
-  description:
-    'Sprain of calcaneofibular ligament of unspecified ankle, initial encounter',
-});
-
-db.labels.save({
-  code: 'S93429A',
-  description:
-    'Sprain of deltoid ligament of unspecified ankle, initial encounter',
-});
-
-db.labels.save({
-  code: 'S93439A',
-  description:
-    'Sprain of tibiofibular ligament of unspecified ankle, initial encounter',
+  code: 'O2G',
+  description: 'mobile GB firewall copying',
 });

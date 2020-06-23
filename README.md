@@ -4,7 +4,7 @@ Both the backend and the React frontend were built using nodejs `12.16.3`.
 
 ## User credentials
 
-There are 2 users: `jsilver@hospital.com` uses `password` as password and `hstevens@clinic.com` uses `12345678`.
+There are 2 users: `jsilver@jsilver.com` uses `password` as password and `hstevens@hstevens.com` uses `12345678`.
 
 ## Running
 
