@@ -4,7 +4,7 @@ services:
   reverse-proxy:
     build: nginx
     ports:
-      - ${EXPOSED_NGINX_PORT:-80}:80
+      - ${EXPOSED_REVERSE_PROXY_PORT:-80}:80
     links:
       - backend
       - frontend
@@ -15,7 +15,7 @@ services:
   backend:
     image: caselabels-backend:latest
     environment:
-      CORS_ORIGINS: http://localhost
+      CORS_ORIGINS: http://localhost:${EXPOSED_REVERSE_PROXY_PORT:-80}
       MONGO_URI: mongodb://caselabels:caselabels@mongo:27017/caselabels
       JWT_PUBLIC_KEY: |-
         -----BEGIN PUBLIC KEY-----
