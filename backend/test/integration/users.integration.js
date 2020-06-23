@@ -11,9 +11,9 @@ describe('POST /users/login', function () {
   context('with invalid credentials', function () {
     [
       {},
-      { email: 'jsilver@hospital.com', password: '' },
+      { email: 'jsilver@jsilver.com', password: '' },
       { email: '', password: 'password' },
-      { email: 'jsilver@hospital.com', password: '12345678' }
+      { email: 'jsilver@jsilver.com', password: '12345678' }
     ].map((invalidCredentials) => {
       const { email, password } = invalidCredentials
 
@@ -35,8 +35,8 @@ describe('POST /users/login', function () {
 
   context('with valid credentials', function () {
     [
-      { email: 'jsilver@hospital.com', password: 'password', name: 'J. Silver' },
-      { email: 'hstevens@clinic.com', password: '12345678', name: 'H. Stevens' }
+      { email: 'jsilver@jsilver.com', password: 'password', name: 'J. Silver' },
+      { email: 'hstevens@hstevens.com', password: '12345678', name: 'H. Stevens' }
     ].map((validCredentials) => {
       const { email, password, name } = validCredentials
 

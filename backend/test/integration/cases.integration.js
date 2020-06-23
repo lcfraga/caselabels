@@ -37,7 +37,7 @@ describe('GET /cases/next', function () {
           expect(res).to.have.status(200)
           expect(res.body.id).to.be.not.empty
           expect(res.body.content).to.startWith(
-            'Patient  is an 45 year old  female.'
+            'Lorem ipsum dolor sit amet'
           )
           done()
         })
