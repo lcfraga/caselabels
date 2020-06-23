@@ -29,7 +29,8 @@
     },
     {
       "files": [
-        "users.integration.js"
+        "users.integration.js",
+        "content-type-enforcer.integration.js"
       ],
       "rules": {
         "mocha/no-setup-in-describe": "off"

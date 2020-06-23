@@ -26,6 +26,7 @@ class Endpoint {
 }
 
 module.exports = {
+  allowedContentTypes: parseCsv(requireFromEnv('ALLOWED_CONTENT_TYPES', 'application/json')),
   appName: requireFromEnv('APP_NAME', packageJson.name),
   corsOrigins: parseCsv(requireFromEnv('CORS_ORIGINS', 'http://localhost')),
   databaseUrl: requireFromEnv('MONGO_URI'),
