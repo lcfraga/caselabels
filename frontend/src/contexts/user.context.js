@@ -16,6 +16,8 @@ class UserContextProvider extends Component {
     };
 
     axios.defaults.withCredentials = true
+    axios.defaults.headers.common['Accept'] = 'application/json'
+    axios.defaults.headers.post['Content-Type'] = 'application/json'
   }
 
   logIn(email, password) {
@@ -41,7 +43,7 @@ class UserContextProvider extends Component {
 
   logOut() {
     axios
-      .post(`${CONFIG.BACKEND_API_URL}/users/logout`)
+      .post(`${CONFIG.BACKEND_API_URL}/users/logout`, {})
       .then(() => {
         this.setState({
           loggedIn: false,
