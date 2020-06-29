@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: caselabels-ingress
+spec:
+  rules:
+    - host: caselabels.io
+      http:
+        paths:
+          - path: /me
+            backend:
+              serviceName: mongo-express-service
+              servicePort: 8081
+          - path: /api
+            backend:
+              serviceName: backend-service
+              servicePort: 3000
+          - path: /
+            backend:
+              serviceName: frontend-service
+              servicePort: 80

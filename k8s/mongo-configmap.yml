@@ -1,0 +1,555 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-configmap
+data:
+  mongo-initial-db: caselabels
+  mongo-database-url: mongodb-service
+  mongo-before.js: |
+    db.createUser({
+      user: 'caselabels',
+      pwd: 'caselabels',
+      roles: [
+        {
+          role: 'readWrite',
+          db: 'caselabels',
+        },
+      ],
+    });
+  mongo-users.js: |
+    db.users.save({
+      name: 'J. Silver',
+      email: 'jsilver@jsilver.com',
+      password: '$2a$10$BGEeG/b5TaPzpisomLfQIewfXh3T6p3EARkyN/iCoba.EW053Zk6K', // password
+    });
+
+    db.users.save({
+      name: 'H. Stevens',
+      email: 'hstevens@hstevens.com',
+      password: '$2a$10$amDIdV4tv0maRxCmu4c/xeuvu1zooX1iI9f4lJX.nXhpT6QZFH4RK', // 12345678
+    });
+  mongo-cases.js: |
+    db.cases.save({
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Felis eget nunc lobortis mattis. Ipsum nunc aliquet bibendum enim facilisis. Cras tincidunt lobortis feugiat vivamus at. Vitae turpis massa sed elementum tempus egestas. Aenean vel elit scelerisque mauris pellentesque pulvinar. Et egestas quis ipsum suspendisse ultrices gravida dictum. Et ultrices neque ornare aenean euismod elementum. Ac tortor dignissim convallis aenean et. Adipiscing commodo elit at imperdiet dui. Gravida rutrum quisque non tellus.',
+    });
+
+    db.cases.save({
+      content:
+        'At imperdiet dui accumsan sit amet nulla facilisi. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare. Sed velit dignissim sodales ut eu sem. Ut venenatis tellus in metus vulputate eu scelerisque. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Fermentum iaculis eu non diam. Amet consectetur adipiscing elit pellentesque habitant. Vulputate enim nulla aliquet porttitor lacus. Vestibulum lectus mauris ultrices eros in cursus turpis massa tincidunt. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. At lectus urna duis convallis convallis tellus id interdum. Velit aliquet sagittis id consectetur purus ut. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus. Aliquam sem et tortor consequat id. Congue mauris rhoncus aenean vel elit scelerisque. Aliquam eleifend mi in nulla posuere sollicitudin aliquam. Arcu cursus vitae congue mauris. Ac odio tempor orci dapibus ultrices. Pretium fusce id velit ut tortor.',
+    });
+
+    db.cases.save({
+      content:
+        'Et leo duis ut diam. Porttitor massa id neque aliquam. Tincidunt arcu non sodales neque sodales. Sit amet purus gravida quis blandit turpis cursus in hac. Tincidunt eget nullam non nisi est sit amet facilisis magna. Est velit egestas dui id ornare arcu odio. Quis vel eros donec ac odio tempor orci. Est placerat in egestas erat imperdiet. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique. Erat velit scelerisque in dictum non consectetur. Diam ut venenatis tellus in metus vulputate eu scelerisque. Amet justo donec enim diam vulputate ut pharetra. Leo integer malesuada nunc vel risus commodo viverra. Faucibus turpis in eu mi. In metus vulputate eu scelerisque felis imperdiet proin fermentum. Libero nunc consequat interdum varius sit amet mattis. Id aliquet lectus proin nibh nisl condimentum. Amet commodo nulla facilisi nullam vehicula. Lorem ipsum dolor sit amet consectetur.',
+    });
+
+    db.cases.save({
+      content:
+        'Sed vulputate mi sit amet mauris commodo quis imperdiet massa. Duis at consectetur lorem donec massa sapien faucibus et molestie. Venenatis tellus in metus vulputate eu scelerisque felis. Bibendum at varius vel pharetra vel turpis nunc. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Eu scelerisque felis imperdiet proin fermentum leo. Sit amet aliquam id diam maecenas. Tellus elementum sagittis vitae et leo duis ut diam. Euismod lacinia at quis risus sed vulputate. Sit amet mattis vulputate enim nulla aliquet porttitor. Nisi lacus sed viverra tellus in hac habitasse. Neque volutpat ac tincidunt vitae semper quis lectus.'
+    });
+
+    db.cases.save({
+      content:
+        'Magna fermentum iaculis eu non diam. Quis viverra nibh cras pulvinar mattis nunc sed. Est sit amet facilisis magna etiam tempor. Justo donec enim diam vulputate ut pharetra sit amet aliquam. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Leo in vitae turpis massa sed elementum. Velit laoreet id donec ultrices tincidunt. At in tellus integer feugiat scelerisque varius morbi enim nunc. Interdum velit laoreet id donec. Velit scelerisque in dictum non consectetur. Senectus et netus et malesuada fames ac turpis egestas. Risus nec feugiat in fermentum posuere urna. Nam libero justo laoreet sit amet cursus sit amet dictum. Pharetra convallis posuere morbi leo urna molestie at elementum. Odio pellentesque diam volutpat commodo sed. Lorem ipsum dolor sit amet consectetur adipiscing. Facilisis magna etiam tempor orci eu lobortis elementum nibh.'
+    });
+  mongo-labels.js: |
+    db.labels.save({
+      code: 'HIN',
+      description: 'haptic IB program synthesizing',
+    });
+
+    db.labels.save({
+      code: 'WFM',
+      description: 'online PCI transmitter connecting',
+    });
+
+    db.labels.save({
+      code: '4ZG',
+      description: 'neural SAS microchip navigating',
+    });
+
+    db.labels.save({
+      code: 'YGW',
+      description: 'optical PCI hard drive calculating',
+    });
+
+    db.labels.save({
+      code: 'LKU',
+      description: 'neural SCSI microchip programming',
+    });
+
+    db.labels.save({
+      code: 'ZOO',
+      description: 'open-source JSON transmitter parsing',
+    });
+
+    db.labels.save({
+      code: 'GQW',
+      description: 'open-source SSL circuit parsing',
+    });
+
+    db.labels.save({
+      code: 'XN3',
+      description: 'digital PNG array compressing',
+    });
+
+    db.labels.save({
+      code: '0U8',
+      description: 'optical SSL bandwidth backing up',
+    });
+
+    db.labels.save({
+      code: '4UZ',
+      description: 'online PCI panel indexing',
+    });
+
+    db.labels.save({
+      code: 'CUI',
+      description: 'haptic AI driver backing up',
+    });
+
+    db.labels.save({
+      code: 'QG2',
+      description: 'redundant JBOD microchip quantifying',
+    });
+
+    db.labels.save({
+      code: 'QYV',
+      description: 'digital ADP capacitor quantifying',
+    });
+
+    db.labels.save({
+      code: '5HL',
+      description: 'auxiliary THX port synthesizing',
+    });
+
+    db.labels.save({
+      code: 'DAC',
+      description: '1080p RSS protocol backing up',
+    });
+
+    db.labels.save({
+      code: 'QZS',
+      description: 'open-source HDD transmitter transmitting',
+    });
+
+    db.labels.save({
+      code: 'KK5',
+      description: 'cross-platform USB card copying',
+    });
+
+    db.labels.save({
+      code: 'JIX',
+      description: 'virtual IB application connecting',
+    });
+
+    db.labels.save({
+      code: 'YMB',
+      description: 'solid state XML circuit navigating',
+    });
+
+    db.labels.save({
+      code: 'VII',
+      description: 'online GB bus programming',
+    });
+
+    db.labels.save({
+      code: 'KZL',
+      description: 'multi-byte SAS panel connecting',
+    });
+
+    db.labels.save({
+      code: 'W2Y',
+      description: 'primary PCI bandwidth copying',
+    });
+
+    db.labels.save({
+      code: 'Q9Z',
+      description: 'optical IB matrix transmitting',
+    });
+
+    db.labels.save({
+      code: 'DEO',
+      description: 'wireless TCP monitor navigating',
+    });
+
+    db.labels.save({
+      code: 'ANT',
+      description: 'digital IB program synthesizing',
+    });
+
+    db.labels.save({
+      code: 'QSS',
+      description: 'open-source SSL driver calculating',
+    });
+
+    db.labels.save({
+      code: 'VKB',
+      description: 'digital JSON monitor navigating',
+    });
+
+    db.labels.save({
+      code: 'JAZ',
+      description: 'back-end EXE card connecting',
+    });
+
+    db.labels.save({
+      code: 'SJE',
+      description: 'haptic HDD protocol synthesizing',
+    });
+
+    db.labels.save({
+      code: 'PVZ',
+      description: 'multi-byte JBOD application indexing',
+    });
+
+    db.labels.save({
+      code: 'HOG',
+      description: 'optical PCI capacitor transmitting',
+    });
+
+    db.labels.save({
+      code: 'OY3',
+      description: 'mobile SCSI transmitter backing up',
+    });
+
+    db.labels.save({
+      code: 'UXT',
+      description: 'back-end SCSI card parsing',
+    });
+
+    db.labels.save({
+      code: 'UT2',
+      description: 'online AI panel quantifying',
+    });
+
+    db.labels.save({
+      code: 'DKK',
+      description: 'auxiliary TCP circuit quantifying',
+    });
+
+    db.labels.save({
+      code: 'UHT',
+      description: '1080p RSS array backing up',
+    });
+
+    db.labels.save({
+      code: 'SUZ',
+      description: 'back-end ADP circuit transmitting',
+    });
+
+    db.labels.save({
+      code: 'CKL',
+      description: 'redundant RAM bandwidth copying',
+    });
+
+    db.labels.save({
+      code: '56I',
+      description: 'back-end CSS circuit navigating',
+    });
+
+    db.labels.save({
+      code: '50Z',
+      description: 'neural SQL port calculating',
+    });
+
+    db.labels.save({
+      code: 'XVF',
+      description: 'solid state SSL microchip quantifying',
+    });
+
+    db.labels.save({
+      code: 'ZPA',
+      description: 'online SDD matrix hacking',
+    });
+
+    db.labels.save({
+      code: 'SFY',
+      description: 'multi-byte XML interface parsing',
+    });
+
+    db.labels.save({
+      code: 'AOW',
+      description: 'online XSS interface hacking',
+    });
+
+    db.labels.save({
+      code: 'YWY',
+      description: 'virtual CSS sensor copying',
+    });
+
+    db.labels.save({
+      code: '4V0',
+      description: 'solid state FTP circuit programming',
+    });
+
+    db.labels.save({
+      code: 'C0F',
+      description: 'neural XSS program generating',
+    });
+
+    db.labels.save({
+      code: 'LD9',
+      description: 'cross-platform RSS system calculating',
+    });
+
+    db.labels.save({
+      code: '8NC',
+      description: 'open-source RSS bus synthesizing',
+    });
+
+    db.labels.save({
+      code: 'JUI',
+      description: 'mobile IB hard drive hacking',
+    });
+
+    db.labels.save({
+      code: 'V75',
+      description: 'wireless RSS program bypassing',
+    });
+
+    db.labels.save({
+      code: 'SP4',
+      description: 'wireless PCI port bypassing',
+    });
+
+    db.labels.save({
+      code: 'UUN',
+      description: 'virtual XSS array indexing',
+    });
+
+    db.labels.save({
+      code: 'Z2F',
+      description: 'mobile COM driver bypassing',
+    });
+
+    db.labels.save({
+      code: 'DDM',
+      description: 'virtual USB program connecting',
+    });
+
+    db.labels.save({
+      code: 'A0X',
+      description: 'primary SSL sensor quantifying',
+    });
+
+    db.labels.save({
+      code: 'Z7V',
+      description: 'neural EXE microchip parsing',
+    });
+
+    db.labels.save({
+      code: 'DJ4',
+      description: 'multi-byte GB firewall copying',
+    });
+
+    db.labels.save({
+      code: 'A80',
+      description: 'redundant HDD hard drive generating',
+    });
+
+    db.labels.save({
+      code: 'LWU',
+      description: 'mobile SMS matrix quantifying',
+    });
+
+    db.labels.save({
+      code: 'H9O',
+      description: 'haptic JBOD pixel synthesizing',
+    });
+
+    db.labels.save({
+      code: 'ERN',
+      description: 'mobile RSS capacitor quantifying',
+    });
+
+    db.labels.save({
+      code: 'GUP',
+      description: 'wireless CSS port copying',
+    });
+
+    db.labels.save({
+      code: 'PYJ',
+      description: 'solid state IB capacitor transmitting',
+    });
+
+    db.labels.save({
+      code: 'B3F',
+      description: 'back-end JSON capacitor copying',
+    });
+
+    db.labels.save({
+      code: 'SHR',
+      description: 'bluetooth HDD system indexing',
+    });
+
+    db.labels.save({
+      code: 'VOW',
+      description: 'online JSON system bypassing',
+    });
+
+    db.labels.save({
+      code: 'D6J',
+      description: 'virtual PCI pixel overriding',
+    });
+
+    db.labels.save({
+      code: 'GZJ',
+      description: 'mobile AI microchip bypassing',
+    });
+
+    db.labels.save({
+      code: 'AUV',
+      description: 'auxiliary AGP pixel programming',
+    });
+
+    db.labels.save({
+      code: 'NYS',
+      description: 'cross-platform COM matrix transmitting',
+    });
+
+    db.labels.save({
+      code: 'VIO',
+      description: 'online THX microchip copying',
+    });
+
+    db.labels.save({
+      code: 'AAV',
+      description: 'bluetooth RSS transmitter copying',
+    });
+
+    db.labels.save({
+      code: 'CNM',
+      description: 'digital RSS firewall overriding',
+    });
+
+    db.labels.save({
+      code: 'SGQ',
+      description: 'online GB application transmitting',
+    });
+
+    db.labels.save({
+      code: 'YFP',
+      description: 'back-end SCSI port navigating',
+    });
+
+    db.labels.save({
+      code: 'DTB',
+      description: 'open-source XSS program programming',
+    });
+
+    db.labels.save({
+      code: 'NAR',
+      description: 'wireless HDD protocol parsing',
+    });
+
+    db.labels.save({
+      code: 'ADW',
+      description: 'online GB firewall quantifying',
+    });
+
+    db.labels.save({
+      code: 'XX1',
+      description: 'virtual PCI bandwidth indexing',
+    });
+
+    db.labels.save({
+      code: 'PZZ',
+      description: 'open-source ADP circuit quantifying',
+    });
+
+    db.labels.save({
+      code: 'J9L',
+      description: 'primary XML microchip backing up',
+    });
+
+    db.labels.save({
+      code: 'Y1T',
+      description: 'mobile SAS hard drive bypassing',
+    });
+
+    db.labels.save({
+      code: '2CP',
+      description: 'digital SMS alarm navigating',
+    });
+
+    db.labels.save({
+      code: 'GB4',
+      description: 'digital AGP program quantifying',
+    });
+
+    db.labels.save({
+      code: 'POX',
+      description: 'redundant COM application indexing',
+    });
+
+    db.labels.save({
+      code: 'QA4',
+      description: 'virtual XSS protocol calculating',
+    });
+
+    db.labels.save({
+      code: 'BD9',
+      description: 'multi-byte RSS application indexing',
+    });
+
+    db.labels.save({
+      code: 'YBR',
+      description: 'solid state COM hard drive programming',
+    });
+
+    db.labels.save({
+      code: 'Z77',
+      description: 'auxiliary JBOD monitor navigating',
+    });
+
+    db.labels.save({
+      code: 'FRK',
+      description: 'digital SQL bandwidth quantifying',
+    });
+
+    db.labels.save({
+      code: 'JUG',
+      description: 'haptic RAM driver bypassing',
+    });
+
+    db.labels.save({
+      code: 'IAF',
+      description: 'mobile XML protocol synthesizing',
+    });
+
+    db.labels.save({
+      code: '46S',
+      description: 'open-source XSS protocol connecting',
+    });
+
+    db.labels.save({
+      code: 'JUA',
+      description: 'primary FTP bandwidth transmitting',
+    });
+
+    db.labels.save({
+      code: 'RD9',
+      description: 'open-source HTTP system navigating',
+    });
+
+    db.labels.save({
+      code: 'QES',
+      description: 'back-end RSS circuit quantifying',
+    });
+
+    db.labels.save({
+      code: 'JDM',
+      description: 'online XSS microchip generating',
+    });
+
+    db.labels.save({
+      code: 'JYC',
+      description: 'bluetooth SCSI matrix programming',
+    });
+
+    db.labels.save({
+      code: 'O2G',
+      description: 'mobile GB firewall copying',
+    });
