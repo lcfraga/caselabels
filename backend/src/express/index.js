@@ -7,7 +7,7 @@ function createExpressApp ({ config, env }) {
   const app = express()
 
   mountMiddleware(app, env)
-  mountRoutes(app, config)
+  mountRoutes(app, env.pathPrefix, config)
 
   app.use((req, res, next) =>
     res.status(404).end()

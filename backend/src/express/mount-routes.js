@@ -1,8 +1,8 @@
-function mountRoutes (app, config) {
-  app.use('/users', config.usersApp)
-  app.use('/cases', config.casesApp)
-  app.use('/labels', config.labelsApp)
-  app.use('/caselabels', config.caseLabelsApp)
+function mountRoutes (app, pathPrefix, config) {
+  app.use(`${pathPrefix}/users`, config.usersApp)
+  app.use(`${pathPrefix}/cases`, config.casesApp)
+  app.use(`${pathPrefix}/labels`, config.labelsApp)
+  app.use(`${pathPrefix}/caselabels`, config.caseLabelsApp)
 }
 
 module.exports = mountRoutes
