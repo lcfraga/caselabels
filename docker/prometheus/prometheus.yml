@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: backend
+    static_configs:
+      - labels:
+          app: backend
+      - targets:
+          - backend:3000
+  - job_name: jaeger
+    static_configs:
+      - labels:
+          app: jaeger
+      - targets:
+          - jaeger:14269
+  - job_name: prometheus
+    static_configs:
+      - labels:
+          app: prometheus
+      - targets:
+          - prometheus:9090
+  - job_name: grafana
+    static_configs:
+      - labels:
+          app: grafana
+      - targets:
+          - grafana:3000

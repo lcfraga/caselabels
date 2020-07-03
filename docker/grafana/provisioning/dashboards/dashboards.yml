@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: Provisioned dashboards
+    folder: Provisioned
+    folderUid: 3bf9f776-5b49-4d27-ab9b-53e26da13fe5
+    type: file
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards

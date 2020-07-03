@@ -15,6 +15,7 @@ services:
   backend:
     image: caselabels-backend:latest
     environment:
+      JAEGER_AGENT_HOST: jaeger
       CORS_ORIGINS: http://localhost:${EXPOSED_REVERSE_PROXY_PORT:-80}
       MONGO_URI: mongodb://caselabels:caselabels@mongo:27017/caselabels
       JWT_PUBLIC_KEY: |-
@@ -107,3 +108,26 @@ services:
       - ${EXPOSED_MONGO_PORT:-27017}:27017
     volumes:
       - ./mongo:/docker-entrypoint-initdb.d:ro
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - ${EXPOSED_PROMETHEUS_PORT:-9090}:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      JAEGER_AGENT_HOST: jaeger
+    volumes:
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/conf/custom.ini:/usr/share/grafana/conf/custom.ini:ro
+    ports:
+      - ${EXPOSED_GRAFANA_PORT:-3000}:3000
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - ${EXPOSED_JAEGER_PORT:-16686}:16686
