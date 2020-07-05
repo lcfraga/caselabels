@@ -3,6 +3,17 @@ apiVersion: 1
 datasources:
   - name: Prometheus
     type: prometheus
-    access: direct
+    access: proxy
     uid: 53d0e212-a596-49e6-968e-038888cd1376
-    url: http://localhost:9090
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    version: 1
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    uid: 17e65cae-df36-4e27-a2a9-46b3ee6b4eba
+    url: http://jaeger:16686
+    isDefault: false
+    editable: false
+    version: 1
