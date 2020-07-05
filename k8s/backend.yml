@@ -21,10 +21,15 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: JAEGER_AGENT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: jaeger-agent-host
             - name: CORS_ORIGINS
               valueFrom:
-                secretKeyRef:
-                  name: backend-secret
+                configMapKeyRef:
+                  name: backend-configmap
                   key: cors-origins
             - name: JWT_PUBLIC_KEY
               valueFrom:
