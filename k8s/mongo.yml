@@ -24,17 +24,17 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: mongodb-configmap
-                  key: mongo-initial-db
+                  key: initial-db
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: mongo-root-username
+                  key: root-username
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: mongo-root-password
+                  key: root-password
           volumeMounts:
             - name: mongo-initial-data
               mountPath: /docker-entrypoint-initdb.d
@@ -44,13 +44,13 @@ spec:
           configMap:
             name: mongodb-configmap
             items:
-              - key: mongo-before.js
+              - key: before.js
                 path: before.js
-              - key: mongo-users.js
+              - key: users.js
                 path: users.js
-              - key: mongo-cases.js
+              - key: cases.js
                 path: cases.js
-              - key: mongo-labels.js
+              - key: labels.js
                 path: labels.js
 
 ---

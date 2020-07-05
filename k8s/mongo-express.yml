@@ -24,17 +24,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: mongo-root-username
+                  key: root-username
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: mongo-root-password
+                  key: root-password
             - name: ME_CONFIG_MONGODB_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: mongodb-configmap
-                  key: mongo-database-url
+                  key: database-url
             - name: ME_CONFIG_SITE_BASEURL
               value: /me
 ---

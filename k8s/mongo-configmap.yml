@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: mongodb-configmap
 data:
-  mongo-initial-db: caselabels
-  mongo-database-url: mongodb-service
-  mongo-before.js: |
+  initial-db: caselabels
+  database-url: mongodb-service
+  before.js: |
     db.createUser({
       user: 'caselabels',
       pwd: 'caselabels',
@@ -16,7 +16,7 @@ data:
         },
       ],
     });
-  mongo-users.js: |
+  users.js: |
     db.users.save({
       name: 'J. Silver',
       email: 'jsilver@jsilver.com',
@@ -28,7 +28,7 @@ data:
       email: 'hstevens@hstevens.com',
       password: '$2a$10$amDIdV4tv0maRxCmu4c/xeuvu1zooX1iI9f4lJX.nXhpT6QZFH4RK', // 12345678
     });
-  mongo-cases.js: |
+  cases.js: |
     db.cases.save({
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Felis eget nunc lobortis mattis. Ipsum nunc aliquet bibendum enim facilisis. Cras tincidunt lobortis feugiat vivamus at. Vitae turpis massa sed elementum tempus egestas. Aenean vel elit scelerisque mauris pellentesque pulvinar. Et egestas quis ipsum suspendisse ultrices gravida dictum. Et ultrices neque ornare aenean euismod elementum. Ac tortor dignissim convallis aenean et. Adipiscing commodo elit at imperdiet dui. Gravida rutrum quisque non tellus.',
@@ -53,7 +53,7 @@ data:
       content:
         'Magna fermentum iaculis eu non diam. Quis viverra nibh cras pulvinar mattis nunc sed. Est sit amet facilisis magna etiam tempor. Justo donec enim diam vulputate ut pharetra sit amet aliquam. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Leo in vitae turpis massa sed elementum. Velit laoreet id donec ultrices tincidunt. At in tellus integer feugiat scelerisque varius morbi enim nunc. Interdum velit laoreet id donec. Velit scelerisque in dictum non consectetur. Senectus et netus et malesuada fames ac turpis egestas. Risus nec feugiat in fermentum posuere urna. Nam libero justo laoreet sit amet cursus sit amet dictum. Pharetra convallis posuere morbi leo urna molestie at elementum. Odio pellentesque diam volutpat commodo sed. Lorem ipsum dolor sit amet consectetur adipiscing. Facilisis magna etiam tempor orci eu lobortis elementum nibh.'
     });
-  mongo-labels.js: |
+  labels.js: |
     db.labels.save({
       code: 'HIN',
       description: 'haptic IB program synthesizing',
