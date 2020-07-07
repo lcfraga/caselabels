@@ -20,14 +20,16 @@ function mountMiddleware (app, env) {
 
   app.use(express.json())
 
-  if (env.enableLogger) {
+  if (env.loggerEnabled) {
     app.use(logger('dev'))
   }
 
-  const jwtVerifier = createJwtVerifier(env)
-
   app.use(setRequestContext)
-  app.use(jwtVerifier)
+
+  if (env.jwtEnabled) {
+    const jwtVerifier = createJwtVerifier(env)
+    app.use(jwtVerifier)
+  }
 }
 
 module.exports = mountMiddleware
