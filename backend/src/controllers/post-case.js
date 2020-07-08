@@ -1,8 +1,8 @@
-module.exports = function makePostLabel ({ addLabel }) {
-  return async function postLabel (httpRequest) {
+module.exports = function makePostCase ({ addCase }) {
+  return async function postCase (httpRequest) {
     try {
-      const labelData = httpRequest.body
-      const data = await addLabel(labelData)
+      const caseData = httpRequest.body
+      const data = await addCase(caseData)
 
       return {
         headers: {

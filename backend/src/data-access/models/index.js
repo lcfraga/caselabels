@@ -1,5 +1,11 @@
+const makeCaseModel = require('./case')
+const makeCaseLabelModel = require('./caselabel')
 const makeLabelModel = require('./label')
+const makeUserModel = require('./user')
 
 module.exports = Object.freeze({
-  makeLabelModel
+  makeCaseModel,
+  makeLabelModel,
+  makeCaseLabelModel,
+  makeUserModel
 })

@@ -1,9 +1,11 @@
-const Joi = require('joi')
-
+const caseSchema = require('./case-schema')
+const caseLabelSchema = require('./caselabel-schema')
 const labelSchema = require('./label-schema')
+const sessionSchema = require('./session-schema')
+const userSchema = require('./user-schema')
 
 function validator (payload, schema) {
-  const { error } = Joi.validate(payload, schema, { abortEarly: false })
+  const { error } = schema.validate(payload, { abortEarly: false, convert: false })
 
   if (error) {
     return Object.freeze({
@@ -15,5 +17,9 @@ function validator (payload, schema) {
 }
 
 module.exports = Object.freeze({
-  labelValidator: (payload) => validator(payload, labelSchema)
+  caseValidator: (payload) => validator(payload, caseSchema),
+  labelValidator: (payload) => validator(payload, labelSchema),
+  caseLabelValidator: (payload) => validator(payload, caseLabelSchema),
+  sessionValidator: (payload) => validator(payload, sessionSchema),
+  userValidator: (payload) => validator(payload, userSchema)
 })

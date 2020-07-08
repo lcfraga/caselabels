@@ -1,8 +1,8 @@
-module.exports = function makePostLabel ({ addLabel }) {
-  return async function postLabel (httpRequest) {
+module.exports = function makePostUser ({ addUser }) {
+  return async function postUser (httpRequest) {
     try {
-      const labelData = httpRequest.body
-      const data = await addLabel(labelData)
+      const userData = httpRequest.body
+      const data = await addUser(userData)
 
       return {
         headers: {

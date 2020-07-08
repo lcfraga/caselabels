@@ -1,17 +1,10 @@
-function _serializeSingle ({ code, description }) {
-  return { code, description }
-}
-
-function _serialize (data) {
+function serialize (data) {
   if (!data) {
     return null
   }
 
-  if (Array.isArray(data)) {
-    return data.map(_serializeSingle)
-  }
-
-  return _serializeSingle(data)
+  const { code, description } = data
+  return { code, description }
 }
 
 function makeLabelsDb (Label) {
@@ -23,22 +16,17 @@ function makeLabelsDb (Label) {
 
   async function findAll (sortBy = {}) {
     const results = await Label.find({}).sort(sortBy).exec()
-    return _serialize(results)
+    return results.map(serialize)
   }
 
   async function findByCode (code) {
     const result = await Label.findOne({ code }).exec()
-    return _serialize(result)
+    return serialize(result)
   }
 
-  async function insert (label) {
-    const newLabel = {
-      code: label.getCode(),
-      description: label.getDescription()
-    }
-
-    const persistedLabel = await Label.create(newLabel)
-    return _serialize(persistedLabel)
+  async function insert (labelData) {
+    const persistedLabel = await Label.create(labelData)
+    return serialize(persistedLabel)
   }
 }
 

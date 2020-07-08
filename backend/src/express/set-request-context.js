@@ -1,8 +1,8 @@
-const { v4: uuid } = require('uuid')
+const cuid = require('cuid')
 
 function setRequestContext (req, res, next) {
   req.context = {
-    traceId: uuid()
+    traceId: cuid()
   }
 
   next()

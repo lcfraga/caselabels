@@ -1,15 +1,25 @@
-const makeLabel = require('../models/label/index')
+const makeLabel = require('../models/label')
 
 module.exports = function makeAddLabel ({ labelsDb }) {
   return async function addLabel (labelData) {
     const label = makeLabel(labelData)
 
-    const existingLabel = await labelsDb.findByCode(label.getCode())
+    const existingLabelData = await labelsDb.findByCode(label.getCode())
 
-    if (existingLabel) {
-      return existingLabel
+    if (existingLabelData) {
+      throw new Error('label exists')
     }
 
-    return await labelsDb.insert(label)
+    const { code, description } = await labelsDb.insert(
+      Object.freeze({
+        code: label.getCode(),
+        description: label.getDescription()
+      })
+    )
+
+    return Object.freeze({
+      code,
+      description
+    })
   }
 }

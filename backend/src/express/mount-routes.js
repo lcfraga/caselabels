@@ -1,4 +1,13 @@
-const { getLabels, postLabel } = require('../controllers')
+const {
+  getLabels,
+  postLabel,
+  postSession,
+  deleteSession,
+  postUser,
+  getCase,
+  postCase,
+  postCaseLabel
+} = require('../controllers')
 
 const makeCallback = require('./callback')
 
@@ -10,6 +19,16 @@ function mountRoutes (app, pathPrefix, config) {
 
   app.get(`${pathPrefix}/new-labels`, makeCallback(getLabels))
   app.post(`${pathPrefix}/new-labels`, makeCallback(postLabel))
+
+  app.post(`${pathPrefix}/new-users`, makeCallback(postUser))
+
+  app.post(`${pathPrefix}/sessions`, makeCallback(postSession))
+  app.delete(`${pathPrefix}/sessions`, makeCallback(deleteSession))
+
+  app.get(`${pathPrefix}/new-cases/next`, makeCallback(getCase))
+  app.post(`${pathPrefix}/new-cases`, makeCallback(postCase))
+
+  app.post(`${pathPrefix}/new-caselabels`, makeCallback(postCaseLabel))
 }
 
 module.exports = mountRoutes
