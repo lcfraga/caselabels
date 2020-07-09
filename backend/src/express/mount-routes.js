@@ -6,29 +6,27 @@ const {
   postUser,
   getCase,
   postCase,
-  postCaseLabel
+  postCaseLabel,
+  notFound
 } = require('../controllers')
 
 const makeCallback = require('./callback')
 
-function mountRoutes (app, pathPrefix, config) {
-  app.use(`${pathPrefix}/users`, config.usersApp)
-  app.use(`${pathPrefix}/cases`, config.casesApp)
-  app.use(`${pathPrefix}/labels`, config.labelsApp)
-  app.use(`${pathPrefix}/caselabels`, config.caseLabelsApp)
+function mountRoutes (app, { pathPrefix }) {
+  app.route(`${pathPrefix}/labels`)
+    .get(makeCallback(getLabels))
+    .post(makeCallback(postLabel))
 
-  app.get(`${pathPrefix}/new-labels`, makeCallback(getLabels))
-  app.post(`${pathPrefix}/new-labels`, makeCallback(postLabel))
+  app.get(`${pathPrefix}/cases/next`, makeCallback(getCase))
+  app.post(`${pathPrefix}/cases`, makeCallback(postCase))
+  app.post(`${pathPrefix}/caselabels`, makeCallback(postCaseLabel))
 
-  app.post(`${pathPrefix}/new-users`, makeCallback(postUser))
+  app.post(`${pathPrefix}/users`, makeCallback(postUser))
 
   app.post(`${pathPrefix}/sessions`, makeCallback(postSession))
   app.delete(`${pathPrefix}/sessions`, makeCallback(deleteSession))
 
-  app.get(`${pathPrefix}/new-cases/next`, makeCallback(getCase))
-  app.post(`${pathPrefix}/new-cases`, makeCallback(postCase))
-
-  app.post(`${pathPrefix}/new-caselabels`, makeCallback(postCaseLabel))
+  app.use(makeCallback(notFound))
 }
 
 module.exports = mountRoutes

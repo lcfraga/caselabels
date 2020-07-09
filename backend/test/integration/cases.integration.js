@@ -35,8 +35,8 @@ describe('GET /cases/next', function () {
         )
         .end((err, res) => {
           expect(res).to.have.status(200)
-          expect(res.body.id).to.be.not.empty
-          expect(res.body.content).to.startWith(
+          expect(res.body.data.id).to.be.not.empty
+          expect(res.body.data.content).to.startWith(
             'Lorem ipsum dolor sit amet'
           )
           done()

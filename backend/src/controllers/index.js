@@ -11,6 +11,7 @@ const {
 const makeDeleteSession = require('./delete-session')
 const makeGetCase = require('./get-case')
 const makeGetLabels = require('./get-labels')
+const makeNotFound = require('./not-found')
 const makePostCase = require('./post-case')
 const makePostCaseLabel = require('./post-caselabel')
 const makePostLabel = require('./post-label')
@@ -25,6 +26,7 @@ const postUser = makePostUser({ addUser })
 const getCase = makeGetCase({ fetchNextCase })
 const postCase = makePostCase({ addCase })
 const postCaseLabel = makePostCaseLabel({ addCaseLabel })
+const notFound = makeNotFound()
 
 module.exports = Object.freeze({
   getLabels,
@@ -34,5 +36,6 @@ module.exports = Object.freeze({
   postUser,
   getCase,
   postCase,
-  postCaseLabel
+  postCaseLabel,
+  notFound
 })
