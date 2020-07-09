@@ -20,7 +20,7 @@ const CaseLabelComponent = () => {
     axios
       .get(`${CONFIG.BACKEND_API_URL}/labels`)
       .then((response) => {
-        dispatch({ type: 'FETCH_LABELS_SUCCESS', payload: response.data });
+        dispatch({ type: 'FETCH_LABELS_SUCCESS', payload: response.data.data });
       })
       .catch(() => {
         dispatch({
@@ -34,7 +34,7 @@ const CaseLabelComponent = () => {
     axios
       .get(`${CONFIG.BACKEND_API_URL}/cases/next`)
       .then((response) => {
-        dispatch({ type: 'FETCH_CASE_SUCCESS', payload: response.data });
+        dispatch({ type: 'FETCH_CASE_SUCCESS', payload: response.data.data });
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -59,7 +59,7 @@ const CaseLabelComponent = () => {
         dispatch({ type: 'CASE_LABEL_SUCCESS' });
       })
       .catch((error) => {
-        if (error.response && error.response.status === 409) {
+        if (error.response && error.response.status === 400) {
           dispatch({ type: 'CASE_LABEL_CONFLICT' });
         } else {
           dispatch({

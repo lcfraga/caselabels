@@ -22,12 +22,12 @@ class UserContextProvider extends Component {
 
   logIn(email, password) {
     axios
-      .post(`${CONFIG.BACKEND_API_URL}/users/login`, { email, password })
+      .post(`${CONFIG.BACKEND_API_URL}/sessions`, { email, password })
       .then((response) => {
         this.setState({
           loggedIn: true,
-          id: response.data.id,
-          name: response.data.name,
+          id: response.data.data.id,
+          name: response.data.data.name,
           error: '',
         });
       })
@@ -43,7 +43,7 @@ class UserContextProvider extends Component {
 
   logOut() {
     axios
-      .post(`${CONFIG.BACKEND_API_URL}/users/logout`, {})
+      .delete(`${CONFIG.BACKEND_API_URL}/sessions`, {})
       .then(() => {
         this.setState({
           loggedIn: false,

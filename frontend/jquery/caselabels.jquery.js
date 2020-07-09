@@ -21,19 +21,21 @@ class CaseLabelsBackend {
   postLogIn(data, onDone, onFail) {
     const dataJson = JSON.stringify(data);
 
-    $.post(`${this.apiUrl}/users/login`, dataJson, null, 'json')
+    $.post(`${this.apiUrl}/sessions`, dataJson, null, 'json')
       .done(onDone)
       .fail(onFail);
   }
 
   postLogOut(onDone, onFail) {
-    $.post(`${this.apiUrl}/users/logout`)
+    $.ajax(`${this.apiUrl}/sessions`, { method: 'DELETE' })
       .done(onDone)
       .fail(onFail);
   }
 
   getLabels(onDone, onFail) {
-    $.get(`${this.apiUrl}/labels`, {}, null, 'json').done(onDone).fail(onFail);
+    $.get(`${this.apiUrl}/labels`, {}, null, 'json')
+      .done(onDone)
+      .fail(onFail);
   }
 
   getNextCase(onDone, onFail) {
@@ -84,7 +86,7 @@ class CaseLabelsApp {
   logIn(data) {
     this.backend.postLogIn(
       data,
-      (data) => this.onLogInSuccess(data),
+      (data) => this.onLogInSuccess(data.data),
       () => this.onLogInError()
     );
   }
@@ -98,14 +100,14 @@ class CaseLabelsApp {
 
   getLabels() {
     this.backend.getLabels(
-      (data) => this.onGetLabelsSuccess(data),
+      (data) => this.onGetLabelsSuccess(data.data),
       () => this.onGetLabelsError()
     );
   }
 
   getNextCase() {
     this.backend.getNextCase(
-      (data) => this.onGetNextCaseSuccess(data),
+      (data) => this.onGetNextCaseSuccess(data.data),
       (error) => this.onGetNextCaseError(error)
     );
   }
@@ -163,7 +165,7 @@ class CaseLabelsApp {
   }
 
   onCaseLabelError(error) {
-    if (error.status === 409) {
+    if (error.status === 400) {
       this.getNextCase();
     } else {
       this.caseLabelFormController.onCaseLabelError();
