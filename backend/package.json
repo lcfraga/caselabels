@@ -17,28 +17,28 @@
     "@opentelemetry/plugin-mongodb": "~0.8.0",
     "@opentelemetry/tracing": "~0.9.0",
     "bcryptjs": "~2.4.3",
-    "chai": "~4.2.0",
-    "chai-http": "~4.3.0",
-    "chai-string": "~1.5.0",
     "cookie-parser": "~1.4.5",
     "cors": "~2.8.5",
     "cuid": "~2.1.8",
     "express": "~4.17.1",
     "express-prometheus-middleware": "~0.9.6",
     "jsonwebtoken": "~8.5.1",
-    "mocha": "~7.1.2",
     "mongoose": "~5.9.13",
     "morgan": "~1.10.0",
     "prom-client": "~12.0.0"
   },
   "devDependencies": {
+    "chai": "~4.2.0",
+    "chai-http": "~4.3.0",
+    "chai-string": "~1.5.0",
     "eslint": "~7.0.0",
     "eslint-config-standard": "~14.1.1",
     "eslint-plugin-import": "~2.20.2",
     "eslint-plugin-mocha": "~7.0.0",
     "eslint-plugin-node": "~11.1.0",
     "eslint-plugin-promise": "~4.2.1",
-    "eslint-plugin-standard": "~4.0.1"
+    "eslint-plugin-standard": "~4.0.1",
+    "mocha": "~7.1.2"
   },
   "engines": {
     "node": "~12.16.3"
