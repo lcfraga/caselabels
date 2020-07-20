@@ -2,15 +2,13 @@
   "env": {
     "commonjs": true,
     "es6": true,
-    "node": true,
-    "mocha": true
+    "node": true
   },
   "plugins": [
-    "mocha"
+    "import"
   ],
   "extends": [
     "standard",
-    "plugin:mocha/recommended",
     "plugin:import/recommended"
   ],
   "globals": {
@@ -21,6 +19,15 @@
     {
       "files": [
         "*.integration.js"
+      ],
+      "env": {
+        "mocha": true
+      },
+      "plugins": [
+        "mocha"
+      ],
+      "extends": [
+        "plugin:mocha/recommended"
       ],
       "rules": {
         "no-unused-expressions": "off",
