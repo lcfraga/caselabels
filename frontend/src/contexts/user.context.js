@@ -10,14 +10,42 @@ class UserContextProvider extends Component {
 
     this.state = {
       loggedIn: false,
+      registered: false,
       id: null,
       name: null,
-      error: '',
+      error: ''
     };
 
     axios.defaults.withCredentials = true
     axios.defaults.headers.common['Accept'] = 'application/json'
     axios.defaults.headers.post['Content-Type'] = 'application/json'
+  }
+
+  resetError() {
+    this.setState({ error: '' });
+  }
+
+  register(name, email, password) {
+    axios
+      .post(`${CONFIG.BACKEND_API_URL}/users`, { name, email, password })
+      .then((response) => {
+        this.setState({
+          registered: true,
+          error: ''
+        });
+
+        setTimeout(() => {
+          this.setState({
+            registered: false
+          })
+        }, 3000)
+      })
+      .catch(() => {
+        this.setState({
+          registered: false,
+          error: 'Registration failed. Please try again.'
+        });
+      });
   }
 
   logIn(email, password) {
@@ -26,17 +54,19 @@ class UserContextProvider extends Component {
       .then((response) => {
         this.setState({
           loggedIn: true,
+          registered: false,
           id: response.data.data.id,
           name: response.data.data.name,
-          error: '',
+          error: ''
         });
       })
       .catch(() => {
         this.setState({
           loggedIn: false,
+          registered: false,
           id: null,
           name: null,
-          error: 'Login failed. Please try again.',
+          error: 'Login failed. Please try again.'
         });
       });
   }
@@ -47,17 +77,19 @@ class UserContextProvider extends Component {
       .then(() => {
         this.setState({
           loggedIn: false,
+          registered: false,
           id: null,
           name: null,
-          error: '',
+          error: ''
         });
       })
       .catch(() => {
         this.setState({
           loggedIn: false,
+          registered: false,
           id: null,
           name: null,
-          error: 'Logout failed.',
+          error: '',
         });
       });
   }
@@ -67,6 +99,8 @@ class UserContextProvider extends Component {
       <UserContext.Provider
         value={{
           ...this.state,
+          resetError: () => this.resetError(),
+          register: (name, email, password) => this.register(name, email, password),
           logIn: (email, password) => this.logIn(email, password),
           logOut: () => this.logOut(),
         }}

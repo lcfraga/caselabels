@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/user.context';
 
 class LoginComponent extends Component {
@@ -7,6 +8,10 @@ class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { email: '', password: '' };
+  }
+
+  componentDidMount() {
+    this.context.resetError();
   }
 
   handleChange = (event) => {
@@ -21,58 +26,67 @@ class LoginComponent extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-            <h1>Case labels (React)</h1>
-            <div className="px-2">
-              <form>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Email"
-                    id="email"
-                    name="email"
-                    onChange={this.handleChange}
-                  />
-                </div>
+        <div className="mx-auto text-center ">
+          <h1>Case labels (React)</h1>
+        </div>
+        <div className="row pt-5">
+          <div className="col-6 mx-auto text-center form">
+            <form>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Email"
+                id="email"
+                name="email"
+                onChange={this.handleChange}
+              />
 
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                    id="password"
-                    name="password"
-                    onChange={this.handleChange}
-                  />
-                </div>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                id="password"
+                name="password"
+                onChange={this.handleChange}
+              />
 
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  onClick={this.handleSubmit}
-                >
-                  Log in
+              <button
+                type="submit"
+                className="btn btn-primary btn-block"
+                onClick={this.handleSubmit}
+              >
+                Log in
                 </button>
-              </form>
-            </div>
+
+              <hr />
+
+              <Link to="/register" className="btn btn-secondary btn-block">
+                Register
+              </Link>
+            </form>
           </div>
         </div>
 
-        {this.context.error ? (
-          <div className="row">
-            <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-              <div className="px-2">
-                <div className="alert alert-danger" role="alert">
-                  {this.context.error}
-                </div>
+        {this.context.error &&
+          <div className="row pt-4">
+            <div className="col-6 mx-auto text-center form">
+              <div className="alert alert-danger" role="alert">
+                {this.context.error}
               </div>
             </div>
           </div>
-        ) : (
-          <div></div>
-        )}
+        }
+
+        {this.context.registered &&
+          <div className="row pt-4">
+            <div className="col-6 mx-auto text-center form">
+              <div className="alert alert-success" role="alert">
+                Registration succeeded. Please log in.
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
     );
   }
