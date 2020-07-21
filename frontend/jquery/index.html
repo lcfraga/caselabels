@@ -17,34 +17,79 @@
 
   <div id="root">
     <div id="login" class="container">
-      <div class="row">
-        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-          <h1>Case labels (jQuery)</h1>
+      <div class="mx-auto text-center ">
+        <h1>Case labels (jQuery)</h1>
+      </div>
 
-          <div class="px-2">
-            <form id="login-form">
-              <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" id="email" name="email" />
-              </div>
+      <div class="row pt-5">
+        <div class="col-6 mx-auto text-center form">
+          <form id="login-form">
 
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
-              </div>
+            <input type="email" class="form-control" placeholder="Email" id="login-email" name="email" autofocus="" />
+            <input type="password" class="form-control" placeholder="Password" id="login-password" name="password" />
 
-              <button type="submit" class="btn btn-primary">
-                Log in
-              </button>
-            </form>
+            <button type="submit" class="btn btn-primary btn-block">
+              Log in
+            </button>
+
+            <hr>
+
+            <button type="button" class="btn btn-secondary btn-block" id="registration-link">
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div id="login-error" class="row pt-4">
+        <div class="col-6 mx-auto text-center form">
+          <div class="alert alert-danger" role="alert">
+            Login failed. Please try again.
           </div>
         </div>
       </div>
 
-      <div id="login-error" class="row">
-        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-          <div class="px-2">
-            <div class="alert alert-danger" role="alert">
-              Login failed. Please try again.
-            </div>
+      <div id="registration-success" class="row pt-4">
+        <div class="col-6 mx-auto text-center form">
+          <div class="alert alert-success" role="alert">
+            Registration succeeded. Please log in.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="registration" class="container">
+      <div class="mx-auto text-center ">
+        <h1>Case labels (jQuery)</h1>
+      </div>
+
+      <div class="row pt-5">
+        <div class="col-6 mx-auto text-center form">
+          <form id="registration-form">
+
+            <input type="text" class="form-control" placeholder="Name" id="registration-name" name="name"
+              autofocus="" />
+            <input type="email" class="form-control" placeholder="Email" id="registration-email" name="email" />
+            <input type="password" class="form-control" placeholder="Password" id="registration-password"
+              name="password" />
+
+            <button type="submit" class="btn btn-primary btn-block">
+              Register
+            </button>
+
+            <hr>
+
+            <button type="button" class="btn btn-secondary btn-block" id="login-link">
+              Log in
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div id="registration-error" class="row pt-4">
+        <div class="col-6 mx-auto text-center form">
+          <div class="alert alert-danger" role="alert">
+            Registration failed. Please try again.
           </div>
         </div>
       </div>

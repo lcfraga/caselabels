@@ -18,6 +18,14 @@ class CaseLabelsBackend {
     });
   }
 
+  postRegistration(data, onDone, onFail) {
+    const dataJson = JSON.stringify(data)
+
+    $.post(`${this.apiUrl}/users`, dataJson, null, 'json')
+      .done(onDone)
+      .fail(onFail);
+  }
+
   postLogIn(data, onDone, onFail) {
     const dataJson = JSON.stringify(data);
 
@@ -54,13 +62,19 @@ class CaseLabelsBackend {
 }
 
 class CaseLabelsApp {
-  constructor(backend, loginFormController, caseLabelFormController) {
+  constructor(backend, loginFormController, registrationFormController, caseLabelFormController) {
     this.backend = backend;
     this.loginFormController = loginFormController;
+    this.registrationFormController = registrationFormController;
     this.caseLabelFormController = caseLabelFormController;
     this.nextCase = {};
     this.label = null;
     this.startedAt = new Date();
+  }
+
+  handleLogInRequest() {
+    this.loginFormController.onLogInRequest()
+    this.registrationFormController.onLogInRequest()
   }
 
   handleLogIn() {
@@ -72,6 +86,16 @@ class CaseLabelsApp {
     this.caseLabelFormController.onLogOut();
     this.logOut();
     this.loginFormController.onLogOut();
+  }
+
+  handleRegistration() {
+    const data = this.registrationFormController.getRegistrationData();
+    this.register(data);
+  }
+
+  handleRegistrationRequest() {
+    this.loginFormController.onRegistrationRequest()
+    this.registrationFormController.onRegistrationRequest()
   }
 
   handleLabelSelection(label) {
@@ -95,6 +119,14 @@ class CaseLabelsApp {
     this.backend.postLogOut(
       () => console.log('Log out succeeded.'),
       () => console.error('Log out failed.')
+    )
+  }
+
+  register(data) {
+    this.backend.postRegistration(
+      data,
+      () => this.onRegistrationSuccess(),
+      () => this.onRegistrationError()
     )
   }
 
@@ -131,6 +163,15 @@ class CaseLabelsApp {
 
   onLogInError() {
     this.loginFormController.onLogInError();
+  }
+
+  onRegistrationSuccess() {
+    this.registrationFormController.onRegistrationSuccess()
+    this.loginFormController.onRegistrationSuccess()
+  }
+
+  onRegistrationError() {
+    this.registrationFormController.onRegistrationError()
   }
 
   onGetLabelsSuccess(labels) {
@@ -176,7 +217,6 @@ class CaseLabelsApp {
 class LoginFormView {
   constructor($formContainer) {
     this.$formContainer = $formContainer;
-    this.hideError();
   }
 
   show() {
@@ -187,22 +227,31 @@ class LoginFormView {
     this.$formContainer.hide();
   }
 
-  showError() {
+  showErrorAlert() {
     this.$formContainer.find('div#login-error').show();
   }
 
-  hideError() {
+  hideErrorAlert() {
     this.$formContainer.find('div#login-error').hide();
   }
 
+  showRegistrationAlert() {
+    this.$formContainer.find('div#registration-success').show();
+  }
+
+  hideRegistrationAlert() {
+    this.$formContainer.find('div#registration-success').hide();
+  }
+
   reset() {
-    this.$formContainer.find('input#email, input#password').val('');
-    this.hideError();
+    this.$formContainer.find('input#login-email, input#login-password').val('');
+    this.hideErrorAlert();
+    this.hideRegistrationAlert();
   }
 
   getData() {
-    const email = this.$formContainer.find('input#email').val();
-    const password = this.$formContainer.find('input#password').val();
+    const email = this.$formContainer.find('input#login-email').val();
+    const password = this.$formContainer.find('input#login-password').val();
     return { email, password };
   }
 }
@@ -210,10 +259,16 @@ class LoginFormView {
 class LoginFormController {
   constructor(view) {
     this.view = view;
+    this.view.reset();
   }
 
   getLogInData() {
     return this.view.getData();
+  }
+
+  onLogInRequest() {
+    this.view.reset();
+    this.view.show();
   }
 
   onLogInSuccess() {
@@ -222,19 +277,95 @@ class LoginFormController {
   }
 
   onLogInError() {
-    this.view.showError();
+    this.view.hideRegistrationAlert();
+    this.view.showErrorAlert();
   }
 
   onLogOut() {
+    this.view.reset();
     this.view.show();
+  }
+
+  onRegistrationRequest() {
+    this.view.reset();
+    this.view.hide();
+  }
+
+  onRegistrationSuccess() {
+    this.view.reset();
+    this.view.show();
+    this.view.showRegistrationAlert();
+  }
+}
+
+class RegistrationFormView {
+  constructor($formContainer) {
+    this.$formContainer = $formContainer;
+  }
+
+  show() {
+    this.$formContainer.show();
+  }
+
+  hide() {
+    this.$formContainer.hide();
+  }
+
+  showErrorAlert() {
+    this.$formContainer.find('div#registration-error').show();
+  }
+
+  hideErrorAlert() {
+    this.$formContainer.find('div#registration-error').hide();
+  }
+
+  reset() {
+    this.$formContainer.find('input#registration-name, input#registration-email, input#registration-password').val('');
+    this.hideErrorAlert();
+  }
+
+  getData() {
+    const name = this.$formContainer.find('input#registration-name').val()
+    const email = this.$formContainer.find('input#registration-email').val();
+    const password = this.$formContainer.find('input#registration-password').val();
+
+    return { name, email, password };
+  }
+}
+
+class RegistrationFormController {
+  constructor(view) {
+    this.view = view;
+    this.view.hide();
+  }
+
+  getRegistrationData() {
+    return this.view.getData();
+  }
+
+  onLogInRequest() {
+    this.view.reset();
+    this.view.hide();
+  }
+
+  onRegistrationRequest() {
+    this.view.reset();
+    this.view.show();
+  }
+
+  onRegistrationSuccess() {
+    this.view.reset();
+    this.view.hide();
+  }
+
+  onRegistrationError() {
+    this.view.showErrorAlert();
   }
 }
 
 class CaseLabelFormView {
   constructor($formContainer) {
     this.$formContainer = $formContainer;
-    this.hide();
-    this.disableSubmit();
   }
 
   enableSubmit() {
@@ -253,20 +384,20 @@ class CaseLabelFormView {
     this.$formContainer.hide();
   }
 
-  showError(error) {
+  showErrorAlert(error) {
     this.$formContainer.find('div#caselabel-error').show();
     this.$formContainer.find('div#caselabel-error-message').text(error);
   }
 
-  hideError() {
+  hideErrorAlert() {
     this.$formContainer.find('div#caselabel-error').hide();
   }
 
-  showDone() {
+  showDoneAlert() {
     this.$formContainer.find('div#caselabel-done').show();
   }
 
-  hideDone() {
+  hideDoneAlert() {
     this.$formContainer.find('div#caselabel-done').hide();
   }
 
@@ -281,7 +412,7 @@ class CaseLabelFormView {
   reset() {
     this.$formContainer.find('textarea#caselabel-case').val('');
     this.$formContainer.find('select#caselabel-label').empty();
-    this.hideError();
+    this.hideErrorAlert();
   }
 
   resetSelection() {
@@ -319,6 +450,8 @@ class CaseLabelFormView {
 class CaseLabelFormController {
   constructor(view) {
     this.view = view;
+    this.view.hide()
+    this.view.disableSubmit()
   }
 
   getCaseLabelData() {
@@ -329,8 +462,8 @@ class CaseLabelFormController {
     this.view.setUser(user);
     this.view.show();
     this.view.showForm();
-    this.view.hideDone();
-    this.view.hideError();
+    this.view.hideDoneAlert();
+    this.view.hideErrorAlert();
   }
 
   onLogOut() {
@@ -344,19 +477,19 @@ class CaseLabelFormController {
 
   onLabelsError() {
     this.view.disableSubmit();
-    this.view.showError('Failed to load labels.');
+    this.view.showErrorAlert('Failed to load labels.');
   }
 
   onNextCaseSuccess(nextCase) {
     this.view.setNextCase(nextCase);
     this.view.resetSelection();
     this.view.disableSubmit();
-    this.view.hideError();
+    this.view.hideErrorAlert();
   }
 
   onNextCaseError() {
     this.view.disableSubmit();
-    this.view.showError('Failed to load next case.');
+    this.view.showErrorAlert('Failed to load next case.');
   }
 
   onLabelSelected() {
@@ -364,13 +497,13 @@ class CaseLabelFormController {
   }
 
   onCaseLabelError() {
-    this.view.showError('Failed to label case.');
+    this.view.showErrorAlert('Failed to label case.');
   }
 
   onCaseLabelDone() {
     this.view.reset();
     this.view.hideForm();
-    this.view.showDone();
+    this.view.showDoneAlert();
   }
 }
 
@@ -381,6 +514,10 @@ $(() => {
   const loginFormView = new LoginFormView($loginFormContainer);
   const loginFormController = new LoginFormController(loginFormView);
 
+  const $registrationFormContainer = $('#registration')
+  const registrationFormView = new RegistrationFormView($registrationFormContainer)
+  const registrationFormController = new RegistrationFormController(registrationFormView)
+
   const $caseLabelFormContainer = $('#caselabel');
   const caseLabelFormView = new CaseLabelFormView($caseLabelFormContainer);
   const caseLabelController = new CaseLabelFormController(caseLabelFormView);
@@ -388,12 +525,28 @@ $(() => {
   const app = new CaseLabelsApp(
     backend,
     loginFormController,
+    registrationFormController,
     caseLabelController
   );
 
   $loginFormContainer.find('#login-form').on('submit', (event) => {
     event.preventDefault();
     app.handleLogIn(event);
+  });
+
+  $loginFormContainer.find('#registration-link').on('click', (event) => {
+    event.preventDefault();
+    app.handleRegistrationRequest()
+  });
+
+  $registrationFormContainer.find('#registration-form').on('submit', (event) => {
+    event.preventDefault();
+    app.handleRegistration();
+  });
+
+  $registrationFormContainer.find('#login-link').on('click', (event) => {
+    event.preventDefault();
+    app.handleLogInRequest();
   });
 
   $caseLabelFormContainer.find('#logout-button').on('click', (event) => {
