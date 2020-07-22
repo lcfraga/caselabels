@@ -33,7 +33,10 @@ module.exports = {
   databaseUrl: requireFromEnv('MONGO_URI'),
   loggerEnabled: requireFromEnv('ENABLE_LOGGER', 'true') === 'true',
   port: parseInt(requireFromEnv('PORT', 3000), 10),
-  publicEndpoints: [new Endpoint({ method: 'POST', path: '/sessions', prefix: requireFromEnv('PATH_PREFIX', '') })],
+  publicEndpoints: [
+    new Endpoint({ method: 'POST', path: '/sessions', prefix: requireFromEnv('PATH_PREFIX', '') }),
+    new Endpoint({ method: 'POST', path: '/users', prefix: requireFromEnv('PATH_PREFIX', '') })
+  ],
   jwtEnabled: requireFromEnv('ENABLE_JWT', 'true') === 'true',
   jwtIssuer: requireFromEnv('JWT_ISSUER', 'caselabels.io'),
   jwtAudience: requireFromEnv('JWT_AUDIENCE', 'caselabels-ui'),
