@@ -22,8 +22,6 @@ module.exports = function makePostSession ({ addSession }) {
         body: { data }
       }
     } catch (e) {
-      console.error(e)
-
       const statusCode = e.message === 'authentication failed' ? 401 : 400
 
       return {

@@ -13,8 +13,6 @@ module.exports = function makePostCase ({ addCase }) {
         body: { data }
       }
     } catch (e) {
-      console.error(e)
-
       return {
         headers: {
           'Content-Type': 'application/json'

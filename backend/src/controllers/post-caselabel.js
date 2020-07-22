@@ -13,8 +13,6 @@ module.exports = function makePostCaseLabel ({ addCaseLabel }) {
         body: { data }
       }
     } catch (e) {
-      console.error(e)
-
       return {
         headers: {
           'Content-Type': 'application/json'

@@ -13,8 +13,6 @@ module.exports = function makeGetCase ({ fetchNextCase }) {
         body: { data }
       }
     } catch (e) {
-      console.error(e)
-
       const statusCode = e.message === 'not found' ? 404 : 400
 
       return {

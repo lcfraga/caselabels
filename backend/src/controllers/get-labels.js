@@ -13,8 +13,6 @@ module.exports = function makeGetLabels ({ listLabels }) {
         body: { data }
       }
     } catch (e) {
-      console.error(e)
-
       return {
         headers,
         statusCode: 400,
