@@ -1,7 +1,7 @@
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const express = require('express')
-const logger = require('morgan')
+const logger = require('morgan-body')
 
 const createContentTypeEnforcer = require('./content-type-enforcer')
 const createJwtVerifier = require('./jwt-verifier')
@@ -21,7 +21,13 @@ function mountMiddleware (app, env) {
   app.use(express.json())
 
   if (env.loggerEnabled) {
-    app.use(logger('dev'))
+    logger(app, {
+      noColors: false,
+      logAllReqHeader: true,
+      logAllResHeader: true,
+      filterParameters: ['password'],
+      theme: 'dimmed'
+    })
   }
 
   app.use(setRequestContext)
