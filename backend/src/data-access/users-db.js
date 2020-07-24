@@ -10,7 +10,8 @@ function serialize (data) {
 function makeUsersDb (User) {
   return Object.freeze({
     findByEmail,
-    insert
+    insert,
+    deleteAll
   })
 
   async function findByEmail (email) {
@@ -21,6 +22,10 @@ function makeUsersDb (User) {
   async function insert (userData) {
     const persistedUser = await User.create(userData)
     return serialize(persistedUser)
+  }
+
+  async function deleteAll () {
+    await User.deleteMany()
   }
 }
 

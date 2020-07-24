@@ -11,7 +11,8 @@ function makeCasesDb (Case) {
   return Object.freeze({
     findById,
     findNextByUserId,
-    insert
+    insert,
+    deleteAll
   })
 
   async function findById (id) {
@@ -27,6 +28,10 @@ function makeCasesDb (Case) {
   async function insert (caseData) {
     const persistedCase = await Case.create(caseData)
     return serialize(persistedCase)
+  }
+
+  async function deleteAll () {
+    await Case.deleteMany()
   }
 }
 

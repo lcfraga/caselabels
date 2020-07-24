@@ -10,7 +10,8 @@ function serialize (data) {
 function makeCasesLabelsDb (CaseLabel) {
   return Object.freeze({
     findByUserIdAndCaseId,
-    insert
+    insert,
+    deleteAll
   })
 
   async function findByUserIdAndCaseId (userId, caseId) {
@@ -21,6 +22,10 @@ function makeCasesLabelsDb (CaseLabel) {
   async function insert (caseLabelData) {
     const persistedCaseLabel = await CaseLabel.create(caseLabelData)
     return serialize(persistedCaseLabel)
+  }
+
+  async function deleteAll () {
+    await CaseLabel.deleteMany()
   }
 }
 

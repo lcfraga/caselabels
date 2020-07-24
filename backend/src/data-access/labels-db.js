@@ -11,7 +11,8 @@ function makeLabelsDb (Label) {
   return Object.freeze({
     findAll,
     findByCode,
-    insert
+    insert,
+    deleteAll
   })
 
   async function findAll (sortBy = {}) {
@@ -27,6 +28,10 @@ function makeLabelsDb (Label) {
   async function insert (labelData) {
     const persistedLabel = await Label.create(labelData)
     return serialize(persistedLabel)
+  }
+
+  async function deleteAll () {
+    await Label.deleteMany()
   }
 }
 

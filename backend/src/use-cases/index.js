@@ -8,6 +8,7 @@ const makeAddSession = require('./add-session')
 const makeAddUser = require('./add-user')
 const makeFetchNextCase = require('./fetch-next-case')
 const makeListLabels = require('./list-labels')
+const makeRemoveAll = require('./remove-all')
 
 const addCase = makeAddCase({ casesDb })
 const fetchNextCase = makeFetchNextCase({ casesDb })
@@ -18,6 +19,8 @@ const addCaseLabel = makeAddCaseLabel({ caseLabelsDb })
 const addSession = makeAddSession({ usersDb, passwordChecker, tokenGenerator })
 const addUser = makeAddUser({ usersDb, passwordHasher })
 
+const removeAll = makeRemoveAll({ casesDb, labelsDb, caseLabelsDb, usersDb })
+
 module.exports = Object.freeze({
   addLabel,
   listLabels,
@@ -25,5 +28,6 @@ module.exports = Object.freeze({
   addUser,
   fetchNextCase,
   addCase,
-  addCaseLabel
+  addCaseLabel,
+  removeAll
 })

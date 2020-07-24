@@ -7,12 +7,13 @@ const {
   getCase,
   postCase,
   postCaseLabel,
+  deleteAll,
   notFound
 } = require('../controllers')
 
 const makeCallback = require('./callback')
 
-function mountRoutes (app, { pathPrefix }) {
+function mountRoutes (app, { pathPrefix, destructiveEndpointsEnabled }) {
   app.route(`${pathPrefix}/labels`)
     .get(makeCallback(getLabels))
     .post(makeCallback(postLabel))
@@ -25,6 +26,10 @@ function mountRoutes (app, { pathPrefix }) {
 
   app.post(`${pathPrefix}/sessions`, makeCallback(postSession))
   app.delete(`${pathPrefix}/sessions`, makeCallback(deleteSession))
+
+  if (destructiveEndpointsEnabled) {
+    app.delete(pathPrefix, makeCallback(deleteAll))
+  }
 
   app.use(makeCallback(notFound))
 }
