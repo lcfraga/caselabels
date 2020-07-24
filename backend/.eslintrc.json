@@ -15,6 +15,9 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "ignorePatterns": [
+    "test/system/*"
+  ],
   "overrides": [
     {
       "files": [
