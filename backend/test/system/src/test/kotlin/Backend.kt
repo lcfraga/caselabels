@@ -48,4 +48,17 @@ object Backend {
         )
     }
 
+    suspend inline fun <reified T> postSession(requestBody: Any): BackendResponse<T> {
+        val httpResponse: HttpResponse = rawPostSession(requestBody)
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
+    suspend fun rawPostSession(requestBody: Any): HttpResponse {
+        return getInstance().post(path = "/sessions", body = requestBody)
+    }
+
 }

@@ -56,7 +56,7 @@ class UsersEndpointTest : DescribeSpec({
 
             describe(context) {
                 it("responds with 400 Bad Request and error message: ${expectedError.error}") {
-                    val actualResponse = Backend.postUser<BackendErrorMessage>(body)
+                    val actualResponse: BackendResponse<BackendErrorMessage> = Backend.postUser(body)
                     val expectedResponse = BackendResponse(statusCode = HttpStatusCode.BadRequest, body = expectedError)
 
                     actualResponse shouldBe expectedResponse
@@ -115,7 +115,7 @@ class UsersEndpointTest : DescribeSpec({
 
             describe(context) {
                 it("responds with 400 Bad Request and error message: ${expectedError.error}") {
-                    val actualResponse = Backend.postUser<BackendErrorMessage>(body)
+                    val actualResponse: BackendResponse<BackendErrorMessage> = Backend.postUser(body)
                     val expectedResponse = BackendResponse(statusCode = HttpStatusCode.BadRequest, body = expectedError)
 
                     actualResponse shouldBe expectedResponse
@@ -126,7 +126,7 @@ class UsersEndpointTest : DescribeSpec({
 
         describe("when payload is valid and user does not exist") {
             it("responds with 201 Created and payload with id") {
-                val actualResponse = Backend.postUser<BackendResponseBodyWrapper<PostUserResponse>>(PostUserRequest())
+                val actualResponse: BackendResponse<BackendResponseBodyWrapper<PostUserResponse>> = Backend.postUser(PostUserRequest())
 
                 val expectedResponse = BackendResponse(
                     statusCode = HttpStatusCode.Created,
@@ -140,10 +140,12 @@ class UsersEndpointTest : DescribeSpec({
         }
 
         describe("when payload is valid and user exists") {
-            it("responds with 400 Bad Request and error message: user exists") {
+            beforeTest {
                 Backend.postUser<BackendResponseBodyWrapper<PostUserResponse>>(PostUserRequest())
+            }
 
-                val actualResponse = Backend.postUser<BackendErrorMessage>(PostUserRequest())
+            it("responds with 400 Bad Request and error message: user exists") {
+                val actualResponse: BackendResponse<BackendErrorMessage> = Backend.postUser(PostUserRequest())
 
                 val expectedResponse = BackendResponse(
                     statusCode = HttpStatusCode.BadRequest,
