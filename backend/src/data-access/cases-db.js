@@ -9,14 +9,14 @@ function serialize (data) {
 
 function makeCasesDb (Case) {
   return Object.freeze({
-    findById,
+    findByContent,
     findNextByUserId,
     insert,
     deleteAll
   })
 
-  async function findById (id) {
-    const result = await Case.findOne({ id }).exec()
+  async function findByContent (content) {
+    const result = await Case.findOne({ content }).exec()
     return serialize(result)
   }
 

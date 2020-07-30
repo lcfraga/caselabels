@@ -4,7 +4,7 @@ module.exports = function makeAddCase ({ casesDb }) {
   return async function addCase (caseData) {
     const _case = makeCase(caseData)
 
-    const existingCaseData = await casesDb.findById(_case.getId())
+    const existingCaseData = await casesDb.findByContent(_case.getContent())
 
     if (existingCaseData) {
       throw new Error('case exists')
