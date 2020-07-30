@@ -12,7 +12,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val kotestVersion = "4.1.2"
+val kotestVersion = "4.1.3"
 val ktorVersion = "1.3.1"
 
 dependencies {
