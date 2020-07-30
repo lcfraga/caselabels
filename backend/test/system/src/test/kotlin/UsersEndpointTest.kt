@@ -43,30 +43,6 @@ class UsersEndpointTest : DescribeSpec({
                 BackendErrorMessage(error = """"name" is required""")
             ),
             row(
-                "when email is absent",
-                PostUserRequestWithoutEmail(),
-                BackendErrorMessage(error = """"email" is required""")
-            ),
-            row(
-                "when password is absent",
-                PostUserRequestWithoutPassword(),
-                BackendErrorMessage(error = """"password" is required""")
-            )
-        ).map { (context: String, body, expectedError: BackendErrorMessage) ->
-
-            describe(context) {
-                it("responds with 400 Bad Request and error message: ${expectedError.error}") {
-                    val actualResponse: BackendResponse<BackendErrorMessage> = Backend.postUser(body)
-                    val expectedResponse = BackendResponse(statusCode = HttpStatusCode.BadRequest, body = expectedError)
-
-                    actualResponse shouldBe expectedResponse
-                }
-            }
-
-        }
-
-        listOf(
-            row(
                 "when name is null",
                 PostUserRequest(name = null),
                 BackendErrorMessage(error = """"name" must be a string""")
@@ -75,6 +51,11 @@ class UsersEndpointTest : DescribeSpec({
                 "when name is empty",
                 PostUserRequest(name = ""),
                 BackendErrorMessage(error = """"name" is not allowed to be empty""")
+            ),
+            row(
+                "when email is absent",
+                PostUserRequestWithoutEmail(),
+                BackendErrorMessage(error = """"email" is required""")
             ),
             row(
                 "when email is null",
@@ -90,6 +71,11 @@ class UsersEndpointTest : DescribeSpec({
                 "when email is not a valid email",
                 PostUserRequest(email = "not an email"),
                 BackendErrorMessage(error = """"email" must be a valid email""")
+            ),
+            row(
+                "when password is absent",
+                PostUserRequestWithoutPassword(),
+                BackendErrorMessage(error = """"password" is required""")
             ),
             row(
                 "when password is null",
@@ -111,7 +97,7 @@ class UsersEndpointTest : DescribeSpec({
                 PostUserRequest(password = "a".repeat(33)),
                 BackendErrorMessage(error = """"password" length must be less than or equal to 32 characters long""")
             )
-        ).map { (context: String, body: PostUserRequest, expectedError: BackendErrorMessage) ->
+        ).map { (context: String, body, expectedError: BackendErrorMessage) ->
 
             describe(context) {
                 it("responds with 400 Bad Request and error message: ${expectedError.error}") {
@@ -125,7 +111,7 @@ class UsersEndpointTest : DescribeSpec({
         }
 
         describe("when payload is valid and user does not exist") {
-            it("responds with 201 Created and payload with id") {
+            it("responds with 201 Created and user payload") {
                 val actualResponse: BackendResponse<BackendResponseBodyWrapper<PostUserResponse>> = Backend.postUser(PostUserRequest())
 
                 val expectedResponse = BackendResponse(

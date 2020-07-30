@@ -4,14 +4,10 @@ import io.ktor.client.engine.apache.Apache
 import io.ktor.client.features.defaultRequest
 import io.ktor.client.features.json.JacksonSerializer
 import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.request.header
-import io.ktor.client.request.host
-import io.ktor.client.request.port
-import io.ktor.client.request.post
+import io.ktor.client.request.*
 import io.ktor.client.statement.HttpResponse
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpStatusCode
+import io.ktor.http.*
+import io.ktor.util.KtorExperimentalAPI
 
 data class BackendResponse<T>(val statusCode: HttpStatusCode, val body: T)
 
@@ -39,6 +35,66 @@ object Backend {
         return client
     }
 
+    @KtorExperimentalAPI
+    suspend inline fun <reified T> postCase(requestBody: Any, cookie: Cookie): BackendResponse<T> {
+        val httpResponse: HttpResponse = getInstance().post(path = "/cases", body = requestBody) {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
+    @KtorExperimentalAPI
+    suspend inline fun <reified T> getNextCase(cookie: Cookie): BackendResponse<T> {
+        val httpResponse: HttpResponse = getInstance().get(path = "/cases/next") {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
+    @KtorExperimentalAPI
+    suspend inline fun <reified T> postLabel(requestBody: Any, cookie: Cookie): BackendResponse<T> {
+        val httpResponse: HttpResponse = getInstance().post(path = "/labels", body = requestBody) {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
+    @KtorExperimentalAPI
+    suspend inline fun <reified T> getLabels(cookie: Cookie): BackendResponse<T> {
+        val httpResponse: HttpResponse = getInstance().get(path = "/labels") {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
+    @KtorExperimentalAPI
+    suspend inline fun <reified T> postCaseLabel(requestBody: Any, cookie: Cookie): BackendResponse<T> {
+        val httpResponse: HttpResponse = getInstance().post(path = "/caselabels", body = requestBody) {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
+
+        return BackendResponse(
+            statusCode = httpResponse.status,
+            body = httpResponse.receive()
+        )
+    }
+
     suspend inline fun <reified T> postUser(requestBody: Any): BackendResponse<T> {
         val httpResponse: HttpResponse = getInstance().post(path = "/users", body = requestBody)
 
@@ -59,6 +115,13 @@ object Backend {
 
     suspend fun rawPostSession(requestBody: Any): HttpResponse {
         return getInstance().post(path = "/sessions", body = requestBody)
+    }
+
+    @KtorExperimentalAPI
+    suspend fun rawDeleteSession(cookie: Cookie): HttpResponse {
+        return getInstance().delete(path = "/sessions") {
+            header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
+        }
     }
 
 }

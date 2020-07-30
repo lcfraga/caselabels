@@ -1,10 +1,13 @@
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.data.row
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNot
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.Cookie
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.setCookie
+import io.ktor.util.KtorExperimentalAPI
 
 data class PostSessionRequestWithoutEmail(
     val password: String = "p4ssw0rd"
@@ -24,6 +27,7 @@ data class PostSessionResponse(
     val name: String = "Lara Clark"
 )
 
+@KtorExperimentalAPI
 class SessionsEndpointTest : DescribeSpec({
 
     listener(DatabaseResetTestListener())
@@ -36,25 +40,6 @@ class SessionsEndpointTest : DescribeSpec({
                 PostSessionRequestWithoutEmail(),
                 BackendErrorMessage(error = """"email" is required""")
             ),
-            row(
-                "when password is absent",
-                PostSessionRequestWithoutPassword(),
-                BackendErrorMessage(error = """"password" is required""")
-            )
-        ).map { (context: String, body, expectedError: BackendErrorMessage) ->
-
-            describe(context) {
-                it("responds with 400 Bad Request and error message: ${expectedError.error}") {
-                    val actualResponse: BackendResponse<BackendErrorMessage> = Backend.postSession(body)
-                    val expectedResponse = BackendResponse(statusCode = HttpStatusCode.BadRequest, body = expectedError)
-
-                    actualResponse shouldBe expectedResponse
-                }
-            }
-
-        }
-
-        listOf(
             row(
                 "when email is null",
                 PostSessionRequest(email = null),
@@ -71,6 +56,11 @@ class SessionsEndpointTest : DescribeSpec({
                 BackendErrorMessage(error = """"email" must be a valid email""")
             ),
             row(
+                "when password is absent",
+                PostSessionRequestWithoutPassword(),
+                BackendErrorMessage(error = """"password" is required""")
+            ),
+            row(
                 "when password is null",
                 PostSessionRequest(password = null),
                 BackendErrorMessage(error = """"password" must be a string""")
@@ -80,7 +70,7 @@ class SessionsEndpointTest : DescribeSpec({
                 PostSessionRequest(password = ""),
                 BackendErrorMessage(error = """"password" is not allowed to be empty""")
             )
-        ).map { (context: String, body: PostSessionRequest, expectedError: BackendErrorMessage) ->
+        ).map { (context: String, body, expectedError: BackendErrorMessage) ->
 
             describe(context) {
                 it("responds with 400 Bad Request and error message: ${expectedError.error}") {
@@ -111,7 +101,7 @@ class SessionsEndpointTest : DescribeSpec({
                 Backend.postUser<BackendResponseBodyWrapper<PostUserResponse>>(PostUserRequest())
             }
 
-            it("responds with 201 Created and payload with id") {
+            it("responds with 201 Created and session payload") {
                 val actualResponse: BackendResponse<BackendResponseBodyWrapper<PostSessionResponse>> = Backend.postSession(PostSessionRequest())
 
                 val expectedResponse = BackendResponse(
@@ -126,18 +116,55 @@ class SessionsEndpointTest : DescribeSpec({
 
             it("responds with JWT in HTTP-only cookie named token") {
                 val actualResponse: HttpResponse = Backend.rawPostSession(PostSessionRequest())
-                val actualCookies = actualResponse.setCookie()
 
-                val expectedCookies = listOf(
+                actualResponse should containCookie(
                     Cookie(
                         path = "/",
                         name = "token",
-                        value = actualCookies[0].value,
+                        value = actualResponse.setCookie()[0].value,
+                        httpOnly = true
+                    )
+                )
+            }
+        }
+    }
+
+    describe("DELETE /sessions") {
+        describe("when JWT in HTTP-only cookie named token is invalid") {
+            it("responds with 401 Unauthorized and no JWT in HTTP-only cookie named token") {
+                val actualResponse: HttpResponse = Backend.rawDeleteSession(
+                    Cookie(
+                        path = "/",
+                        name = "token",
+                        value = "invalid-jwt",
                         httpOnly = true
                     )
                 )
 
-                actualCookies shouldBe expectedCookies
+                actualResponse should haveStatus(HttpStatusCode.Unauthorized)
+                actualResponse shouldNot containCookies()
+            }
+        }
+
+        describe("when JWT in HTTP-only cookie named token is valid") {
+            var cookie = Cookie(name = "", value = "")
+
+            beforeTest {
+                Backend.postUser<BackendResponseBodyWrapper<PostUserResponse>>(PostUserRequest())
+                cookie = Backend.rawPostSession(PostSessionRequest()).setCookie()[0]
+            }
+
+            it("responds with 200 OK and no JWT in HTTP-only cookie named token") {
+                val actualResponse: HttpResponse = Backend.rawDeleteSession(cookie)
+
+                actualResponse should haveStatus(HttpStatusCode.OK)
+
+                actualResponse should containCookie(
+                    path = "/",
+                    name = "token",
+                    value = "",
+                    httpOnly = true
+                )
             }
         }
     }
