@@ -39,7 +39,6 @@
     },
     {
       "files": [
-        "users.integration.js",
         "content-type-enforcer.integration.js"
       ],
       "rules": {
