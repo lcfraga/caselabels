@@ -1,25 +1,21 @@
 pipeline {
 
-    agent any
+    agent {
+        docker {
+            image 'node:lts-alpine'
+        }
+    }
 
     options {
         buildDiscarder(logRotator(numToKeepStr:'10'))
         timeout(time: 5, unit: 'MINUTES')
     }
 
-    parameters {
-        string(name: 'NODE_INSTALLATION', defaultValue: 'nodejs v12.18.2')
-        string(name: 'NPM_VERSION',       defaultValue: '6.14.7')
-    }
-
     stages {
         stage('Install dependencies') {
             steps {
                 dir('backend') {
-                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
-                        sh "npm install -g npm@$params.NPM_VERSION"
-                        sh 'npm ci'
-                    }
+                    sh 'npm ci'
                 }
             }
         }
@@ -27,9 +23,7 @@ pipeline {
         stage('Lint') {
             steps {
                 dir('backend') {
-                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
-                        sh 'npm run lint'
-                    }
+                    sh 'npm run lint'
                 }
             }
         }
@@ -38,14 +32,15 @@ pipeline {
             environment {
                 MOCHA_REPORTER    = 'mocha-jenkins-reporter'
                 JUNIT_REPORT_PATH = 'report.xml'
+                MONGO_URI         = 'mongo-uri-placeholder'
+                JWT_PUBLIC_KEY    = 'jwt-public-key-placeholder'
+                JWT_PRIVATE_KEY   = 'jwt-private-key-placeholder'
             }
 
             steps {
                 dir('backend') {
-                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
-                        sh "npm install -g mocha-jenkins-reporter"
-                        sh 'npm test'
-                    }
+                    sh "npm install mocha-jenkins-reporter"
+                    sh 'npm test'
                 }
             }
 
