@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon bin/start-server --color",
-    "integration-tests": "mocha test/integration/*.js",
+    "test": "mocha --reporter ${MOCHA_REPORTER:-spec} test/integration/*.js",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -45,6 +45,8 @@
     "node": "~12.18.2"
   },
   "nodemonConfig": {
-    "ignore": ["test/*"]
+    "ignore": [
+      "test/*"
+    ]
   }
 }
