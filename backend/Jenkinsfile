@@ -1,0 +1,59 @@
+pipeline {
+
+    agent any
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+        timeout(time: 5, unit: 'MINUTES')
+    }
+
+    parameters {
+        string(name: 'NODE_INSTALLATION', defaultValue: 'nodejs v12.18.2')
+        string(name: 'NPM_VERSION',       defaultValue: '6.14.7')
+    }
+
+    stages {
+        stage('Install dependencies') {
+            steps {
+                dir('backend') {
+                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
+                        sh "npm install -g npm@$params.NPM_VERSION"
+                        sh 'npm ci'
+                    }
+                }
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                dir('backend') {
+                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
+                        sh 'npm run lint'
+                    }
+                }
+            }
+        }
+
+        stage('Run tests') {
+            environment {
+                MOCHA_REPORTER    = 'mocha-jenkins-reporter'
+                JUNIT_REPORT_PATH = 'report.xml'
+            }
+
+            steps {
+                dir('backend') {
+                    nodejs(nodeJSInstallationName: "$params.NODE_INSTALLATION") {
+                        sh "npm install -g mocha-jenkins-reporter"
+                        sh 'npm test'
+                    }
+                }
+            }
+
+            post {
+                always {
+                    junit 'backend/report.xml'
+                }
+            }
+        }
+    }
+}
