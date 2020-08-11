@@ -1,0 +1,90 @@
+version: "3"
+
+services:
+  backend:
+    image: caselabels-backend:latest
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      MONGO_URI: mongodb://caselabels:caselabels@mongo:27017/caselabels
+      JWT_PUBLIC_KEY: |-
+        -----BEGIN PUBLIC KEY-----
+        MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA6a3Vqsq66eZSXKIhMIui
+        HCT7EoY2/eOyMbStkf16qDEAf4l7GxoDsBXnbJVP/PisKtOvcL4iiSkqIeZkJ49N
+        iXlZd1wcCHSzcrNhHwbIv+ymG0hd4LswykJG8QnIxJpy1+TgnDhwHYm25XE5u3ct
+        nZdv0PlcR6SSX2wT/RwFBZnGiK1fqrAJLw0HCwUWKgcI6Vw+xel8c4hywBIhqB+f
+        Xs+Ijnn/YIjlNeID/UIGs87ZxoDnnFyOUY/YIjfYZ+fX3eJmaqVM3LPgHJe+7gRD
+        BMdAWnFTimXquLWor3Dfbe9KZFeLQnSSk5pUpVNwX1XW0ihsd4Wu6OSHHtFf0rgR
+        iX0ruPMu5WEgOKRkRI9dbcBF7GlppIMqGH+QG/kWXvV2ZXtZSYOFxyVIeQ29shKm
+        cwID/By5kR+diB1swdzM4GAuB0dGRpN51//S+oyX+R277lPKOMR7F74eY0PjOrux
+        XdydWXjb3JYBjPEVuhZfD75ES55jrCi2Ai89XTcD+vpSDvvlY7htKeE3QbLHjfaN
+        Z/WDt8RfsU/hBBjAXSwgll1ZUXN/L0u/813Fc31z3zsX7LpdNLWKDeIPb+PnHs5/
+        i1V/kOSellHvO0HV1Q+TuWsQP2YCVtz4051O6cw6pue7Ix9E6kfRoHoI8Pn6XKj0
+        D0FjzcTSY5XHPHTtjXaflG0CAwEAAQ==
+        -----END PUBLIC KEY-----
+      JWT_PRIVATE_KEY: |-
+        -----BEGIN RSA PRIVATE KEY-----
+        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
+        -----END RSA PRIVATE KEY-----
+    ports:
+      - 3000
+    links:
+      - mongo
+
+  mongo:
+    image: mongo:3.6
+    environment:
+      MONGO_INITDB_DATABASE: caselabels
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017
+    volumes:
+      - ./mongo:/docker-entrypoint-initdb.d:ro
