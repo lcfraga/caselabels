@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   reverse-proxy:
@@ -129,10 +129,3 @@ services:
     image: jaegertracing/all-in-one:latest
     ports:
       - ${EXPOSED_JAEGER_PORT:-16686}:16686
-
-  jenkins:
-    build: jenkins
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - ${EXPOSED_JENKINS_PORT:-8080}:8080
