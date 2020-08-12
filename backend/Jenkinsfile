@@ -1,18 +1,46 @@
-pipeline {
+/**
+ * Returns the address of the docker host running containerName.
+ *
+ */
+def getHostAddress(containerName) {
+    return sh(
+        script: "docker-compose exec -T ${containerName} /sbin/ip route | awk '/default/ { print \$3 }'",
+        returnStdout: true
+    ).trim()
+}
 
-    agent {
-        docker {
-            image 'node:lts-alpine'
-        }
-    }
+/**
+ * Returns the port exposed by containerName(:containerPort).
+ *
+ */
+def getExposedPort(containerName, containerPort) {
+    return sh(
+            script: "docker-compose port ${containerName} ${containerPort} | cut -d ':' -f 2",
+            returnStdout: true
+    ).trim()
+}
+
+pipeline {
+    agent none
 
     options {
-        buildDiscarder(logRotator(numToKeepStr:'10'))
-        timeout(time: 5, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr:'5'))
+        timeout(time: 15, unit: 'MINUTES')
+    }
+
+    environment {
+        COMPOSE_PROJECT_NAME = 'caselabels-ci'
+        COMPOSE_FILE         = 'docker/docker-compose.ci.yml'
     }
 
     stages {
         stage('Install dependencies') {
+            agent {
+                docker {
+                    image 'node:lts-alpine'
+                }
+            }
+
             steps {
                 dir('backend') {
                     sh 'npm ci'
@@ -20,7 +48,13 @@ pipeline {
             }
         }
 
-        stage('Lint') {
+        stage('Run linter') {
+            agent {
+                docker {
+                    image 'node:lts-alpine'
+                }
+            }
+
             steps {
                 dir('backend') {
                     sh 'npm run lint'
@@ -28,7 +62,13 @@ pipeline {
             }
         }
 
-        stage('Run tests') {
+        stage('Run unit tests') {
+            agent {
+                docker {
+                    image 'node:lts-alpine'
+                }
+            }
+
             environment {
                 MOCHA_REPORTER    = 'mocha-jenkins-reporter'
                 JUNIT_REPORT_PATH = 'report.xml'
@@ -39,15 +79,65 @@ pipeline {
 
             steps {
                 dir('backend') {
-                    sh "npm install mocha-jenkins-reporter"
+                    sh "npm install ${MOCHA_REPORTER}"
                     sh 'npm test'
                 }
             }
 
             post {
                 always {
-                    junit 'backend/report.xml'
+                    junit "backend/${JUNIT_REPORT_PATH}"
                 }
+            }
+        }
+
+        stage('Build backend docker image') {
+            agent { label 'master' }
+
+            steps {
+                dir('backend') {
+                    sh 'script/dockerize'
+                }
+            }
+        }
+
+        stage('Start mongo and backend containers') {
+            agent { label 'master' }
+
+            steps {
+                sh 'docker-compose up -d'
+                sleep 15
+            }
+        }
+
+        stage('Run system tests') {
+            agent { label 'master' }
+
+            environment {
+                HOST = getHostAddress('backend')
+                PORT = getExposedPort('backend', 3000)
+            }
+
+            steps {
+                dir('backend/test/system') {
+                    sh './gradlew clean'
+                    sh './gradlew test --info'
+                }
+            }
+
+            post {
+                always {
+                    junit 'backend/test/system/build/test-results/test/TEST-*.xml'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            node('master') {
+                sh 'docker-compose down --volumes'
+                sh 'docker system prune --volumes -f'
             }
         }
     }
