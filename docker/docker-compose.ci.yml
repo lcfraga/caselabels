@@ -87,4 +87,4 @@ services:
     ports:
       - 27017
     volumes:
-      - ./mongo:/docker-entrypoint-initdb.d:ro
+      - ./mongo/before.js:/docker-entrypoint-initdb.d/before.js:ro
