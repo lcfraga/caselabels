@@ -86,5 +86,3 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - 27017
-    volumes:
-      - ./mongo/before.js:/docker-entrypoint-initdb.d/before.js:ro
