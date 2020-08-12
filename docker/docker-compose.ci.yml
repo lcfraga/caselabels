@@ -80,7 +80,7 @@ services:
       - mongo
 
   mongo:
-    image: mongo:3.6
+    build: mongo
     environment:
       MONGO_INITDB_DATABASE: caselabels
       MONGO_INITDB_ROOT_USERNAME: root
