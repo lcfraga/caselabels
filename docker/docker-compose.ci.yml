@@ -5,6 +5,7 @@ services:
     image: caselabels-backend:latest
     environment:
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      ENABLE_DESTRUCTIVE_ENDPOINTS: "true"
       MONGO_URI: mongodb://caselabels:caselabels@mongo:27017/caselabels
       JWT_PUBLIC_KEY: |-
         -----BEGIN PUBLIC KEY-----
