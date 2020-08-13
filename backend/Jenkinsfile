@@ -107,27 +107,37 @@ pipeline {
             steps {
                 sh 'docker-compose up -d'
                 sleep 15
+
+                // We'll need these in the system test stage.
+                sh "echo ${getHostAddress('backend')} > system-tests-host"
+                sh "echo ${getExposedPort('backend', 3000)} > system-tests-port"
             }
         }
 
         stage('Run system tests') {
-            agent { label 'master' }
+            agent {
+                docker {
+                    image 'openjdk:11-jdk-slim'
+                }
+            }
 
             environment {
-                HOST = getHostAddress('backend')
-                PORT = getExposedPort('backend', 3000)
+                HOST = sh(script: 'cat system-tests-host', returnStdout: true).trim()
+                PORT = sh(script: 'cat system-tests-port', returnStdout: true).trim()
             }
 
             steps {
                 dir('backend/test/system') {
-                    sh './gradlew clean'
-                    sh './gradlew test --info'
+                    sh './gradlew --info clean'
+                    sh './gradlew --stop' // The tests will hang if we don't stop the current daemon.
+                    sh './gradlew --info test'
                 }
             }
 
             post {
                 always {
                     junit 'backend/test/system/build/test-results/test/TEST-*.xml'
+                    sh 'rm -f system-tests-host system-tests-port'
                 }
             }
         }
