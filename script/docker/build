@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+[ -z "$DEBUG" ] || set -x
+
+set -e
+
+cd "$(dirname "$0")/../../"
+
+cd backend
+script/dockerize
+cd ..
+
+cd frontend
+npm install
+script/dockerize
+cd ..

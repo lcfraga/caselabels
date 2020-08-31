@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+[ -z "$DEBUG" ] || set -x
+
+set -e
+
+cd "$(dirname "$0")/../../"
+
+docker-compose -p caselabels -f docker/docker-compose.yml $@
