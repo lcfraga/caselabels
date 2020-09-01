@@ -23,4 +23,4 @@ const BACKEND_API_URL = 'http://localhost:8080/api';
 
 ## Create docker image
 
-Go to the parent directory with `cd ..` and run [`script/dockerize`](script/dockerize).
+Go to the parent directory with `cd ..` and run [`script/dockerize`](../script/dockerize).

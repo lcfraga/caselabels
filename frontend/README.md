@@ -25,7 +25,7 @@ Running `npm run build` builds the app for production to the `build` folder. It 
 
 ## Create docker image
 
-Run [`script/dockerize`](script/dockerize). Dependencies must be installed.
+Run [`script/dockerize`](script/dockerize). Dependencies must be installed beforehand.
 
 
 ## Change backend URL
