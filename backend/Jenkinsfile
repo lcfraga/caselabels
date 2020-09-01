@@ -4,7 +4,7 @@
  */
 def getHostAddress(containerName) {
     return sh(
-        script: "docker-compose exec -T ${containerName} /sbin/ip route | awk '/default/ { print \$3 }'",
+        script: "script/docker/compose-ci exec -T ${containerName} /sbin/ip route | awk '/default/ { print \$3 }'",
         returnStdout: true
     ).trim()
 }
@@ -15,7 +15,7 @@ def getHostAddress(containerName) {
  */
 def getExposedPort(containerName, containerPort) {
     return sh(
-            script: "docker-compose port ${containerName} ${containerPort} | cut -d ':' -f 2",
+            script: "script/docker/compose-ci port ${containerName} ${containerPort} | cut -d ':' -f 2",
             returnStdout: true
     ).trim()
 }
@@ -26,11 +26,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr:'5'))
         timeout(time: 15, unit: 'MINUTES')
-    }
-
-    environment {
-        COMPOSE_PROJECT_NAME = 'caselabels-ci'
-        COMPOSE_FILE         = 'docker/docker-compose.ci.yml'
     }
 
     stages {
@@ -105,7 +100,7 @@ pipeline {
             agent { label 'master' }
 
             steps {
-                sh 'docker-compose up -d'
+                sh 'script/docker/compose-ci up -d'
                 sleep 15
 
                 // We'll need these in the system test stage.
@@ -146,7 +141,7 @@ pipeline {
     post {
         always {
             node('master') {
-                sh 'docker-compose down --volumes'
+                sh 'script/docker/compose-ci down --volumes'
                 sh 'docker system prune --volumes -f'
             }
         }
