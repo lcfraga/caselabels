@@ -27,7 +27,7 @@ object Backend {
         defaultRequest {
             host = Environment.getVariable("HOST", "localhost")
             port = Environment.getVariable("PORT", "3000").toInt()
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
         }
     }
 
