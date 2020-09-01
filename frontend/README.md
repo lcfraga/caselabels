@@ -1,68 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# caselabels-frontend
 
-## Available Scripts
+React frontend with forms to register users, log in and create caselabels. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). There's also a [jQuery frontend](jquery/README.md).
 
-In the project directory, you can run:
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Node.js `12.18.2` must be installed. Consider using something like [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+## Installing dependencies
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Running `npm ci` will install the necessary dependencies.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Running `npm start` will start the frontend in development mode. By default, it will be available at http://localhost:3000. Use the `PORT` environment variable to bind the server to another port, e.g., run `PORT=5000 npm start` to make the frontend available at http://localhost:5000 instead. The page will reload if you make edits and any lint errors will be visible in the console.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Packaging
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Running `npm run build` builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Create docker image
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Run [`script/dockerize`](script/dockerize). Dependencies must be installed.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Change backend URL
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To use a different port, e.g., port `8080`, the [`src/config.js`](src/config.js) file must be changed to:
 
-### Code Splitting
+```js
+const CONFIG = {
+  BACKEND_API_URL: 'http://localhost:8080/api',
+};
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+export default CONFIG;
+```
