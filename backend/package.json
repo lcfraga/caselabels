@@ -24,7 +24,7 @@
     "joi": "~17.10.1",
     "jsonwebtoken": "~9.0.2",
     "mongoose": "~5.9.25",
-    "morgan-body": "~2.4.14",
+    "morgan-body": "~2.6.9",
     "prom-client": "~14.2.0"
   },
   "devDependencies": {
