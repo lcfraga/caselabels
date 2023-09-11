@@ -1,5 +1,5 @@
 function createContentTypeEnforcer ({ allowedContentTypes }) {
-  return (req, res, next) => {
+  return function contentTypeEnforcer (req, res, next) {
     for (const contentType of allowedContentTypes) {
       const result = req.is(contentType)
 

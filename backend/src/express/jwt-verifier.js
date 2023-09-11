@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 function createJwtVerifier ({ publicEndpoints, jwtPublicKey, jwtAlgorithm, jwtIssuer, jwtAudience }) {
-  return (req, res, next) => {
+  return function jwtVerifier (req, res, next) {
     for (const endpoint of publicEndpoints) {
       if (endpoint.matches(req)) {
         next()
