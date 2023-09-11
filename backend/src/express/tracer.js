@@ -1,36 +1,33 @@
 const opentelemetry = require('@opentelemetry/api')
-const { JaegerExporter } = require('@opentelemetry/exporter-jaeger')
-const { NodeTracerProvider } = require('@opentelemetry/node')
-const { SimpleSpanProcessor } = require('@opentelemetry/tracing')
+const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
+const { registerInstrumentations } = require('@opentelemetry/instrumentation')
+const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express')
+const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http')
+const { MongoDBInstrumentation } = require('@opentelemetry/instrumentation-mongodb')
+const { Resource } = require('@opentelemetry/resources')
+const { SimpleSpanProcessor } = require('@opentelemetry/sdk-trace-base')
+const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node')
+const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions')
 
 module.exports = (serviceName) => {
   const provider = new NodeTracerProvider({
-    plugins: {
-      express: {
-        enabled: true,
-        path: '@opentelemetry/plugin-express',
-        ignoreLayersType: [
-          'middleware',
-          'request_handler',
-          'router'
-        ]
-      },
-      http: {
-        enabled: true,
-        path: '@opentelemetry/plugin-http'
-      },
-      mongodb: {
-        enabled: true,
-        path: '@opentelemetry/plugin-mongodb',
-        enhancedDatabaseReporting: true
-      }
-    }
+    resource: new Resource({
+      [SemanticResourceAttributes.SERVICE_NAME]: serviceName
+    })
   })
 
-  const exporter = new JaegerExporter({ serviceName })
+  const exporter = new OTLPTraceExporter()
 
   provider.addSpanProcessor(new SimpleSpanProcessor(exporter))
   provider.register()
 
-  return opentelemetry.trace.getTracer('caselabels-express')
+  registerInstrumentations({
+    instrumentations: [
+      new ExpressInstrumentation({ ignoreLayersType: ['request_handler', 'router'] }),
+      new HttpInstrumentation(),
+      new MongoDBInstrumentation()
+    ]
+  })
+
+  return opentelemetry.trace.getTracer(serviceName)
 }
