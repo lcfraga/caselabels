@@ -15,12 +15,12 @@ describe('content type enforcement', function () {
       '/caselabels',
       '/users/login',
       '/users/logout'
-    ].map(path => {
+    ].forEach(path => {
       [
         'application/x-www-form-urlencoded',
         'multipart/form-data',
         'text/plain'
-      ].map(invalidContentType => {
+      ].forEach(invalidContentType => {
         context(`POST ${path} with content type ${invalidContentType}`, function () {
           it('should return 415', function (done) {
             chai
@@ -28,7 +28,7 @@ describe('content type enforcement', function () {
               .post(path)
               .set('Content-Type', invalidContentType)
               .send('{}')
-              .end((err, res) => {
+              .end((_err, res) => {
                 expect(res).to.have.status(415)
                 expect(res.body).to.be.empty
                 done()
@@ -44,7 +44,7 @@ describe('content type enforcement', function () {
       '/caselabels',
       '/users/login',
       '/users/logout'
-    ].map(path => {
+    ].forEach(path => {
       context(`POST ${path} with content type application/json`, function () {
         it('should return 401', function (done) {
           chai
@@ -52,7 +52,7 @@ describe('content type enforcement', function () {
             .post(path)
             .set('Content-Type', 'application/json')
             .send({})
-            .end((err, res) => {
+            .end((_err, res) => {
               expect(res).to.have.status(401)
               expect(res.body).to.be.empty
               done()
