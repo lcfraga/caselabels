@@ -67,9 +67,9 @@ EXPOSED_GRAFANA_PORT=3001 EXPOSED_PROMETHEUS_PORT=9091 script/docker/compose up
 Grafana starts with 2 provisioned dashboards: one for Jaeger and one for Prometheus.
 
 
-## Running the Jenkins CI pipeline
+## Running the Jenkins CI pipeline (only on Linux)
 
-There's a continuous integration pipeline for the backend application. To run it, we have to start a Jenkins docker container that uses the host's docker: this means that all images available in the host are available in the Jenkins container. The Jenkins docker image is based on the one over at https://github.com/sudo-bmitch/jenkins-docker.
+There's a continuous integration pipeline for the backend application. To run it, we have to start a Jenkins docker container that uses the host's docker: this means that all images available in the host are available in the Jenkins container. The Jenkins docker image is based on the one over at https://github.com/sudo-bmitch/jenkins-docker. Given the docker-in-docker context, it only works on Linux. It may work in other contexts, but it may be too complicated for the purpose of this project.
 
 Since the pipeline times out after 15 minutes, it may be better to pull the images required by the build before running the pipeline:
 
