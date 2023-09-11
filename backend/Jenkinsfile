@@ -87,7 +87,7 @@ pipeline {
         }
 
         stage('Build backend docker image') {
-            agent { label 'master' }
+            agent { label 'built-in' }
 
             steps {
                 dir('backend') {
@@ -97,7 +97,7 @@ pipeline {
         }
 
         stage('Start mongo and backend containers') {
-            agent { label 'master' }
+            agent { label 'built-in' }
 
             steps {
                 sh 'script/docker/compose-ci up -d'
