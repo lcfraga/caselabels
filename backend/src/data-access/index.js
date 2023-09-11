@@ -8,19 +8,21 @@ const makeLabelsDb = require('./labels-db')
 const dbModels = require('./models')
 const makeUsersDb = require('./users-db')
 
-mongoose.connect(env.databaseUrl, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+if (env.databaseEnabled) {
+  mongoose.connect(env.databaseUrl, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
 
-mongoose.connection.once('open', function () {
-  console.log('Mongoose connection open')
-}).on('error', function (error) {
-  console.log('Mongoose connection error', error)
-}).on('disconnected', function () {
-  console.log('Mongoose connection disconnected')
-})
+  mongoose.connection.once('open', function () {
+    console.log('Mongoose connection open')
+  }).on('error', function (error) {
+    console.log('Mongoose connection error', error)
+  }).on('disconnected', function () {
+    console.log('Mongoose connection disconnected')
+  })
+}
 
 const Case = dbModels.makeCaseModel(mongoose)
 const Label = dbModels.makeLabelModel(mongoose)

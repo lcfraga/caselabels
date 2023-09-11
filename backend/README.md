@@ -22,6 +22,7 @@ It's possible to set/override the following environment variables to configure t
 | `APP_NAME`                     | `caselabels-backend`                                         | Used in the server's initial log message.                          |
 | `ALLOWED_CONTENT_TYPES`        | `application/json`                                           | Comma-separated list of allowed content types.                     |
 | `CORS_ORIGINS`                 | `http://localhost`                                           | Comma-separated list of allowed CORS origins.                      |
+| `ENABLE_DB`                    | `true`                                                       | **Experimental!** Enables/disables the creation of a database connection.                      |
 | `MONGO_URI`                    | `mongodb://caselabels:caselabels@localhost:27017/caselabels` | MongoDB URI.                                                       |
 | `ENABLE_DESTRUCTIVE_ENDPOINTS` | `false`                                                      | Enables/disables the database reset endpoint used in system tests. |
 | `ENABLE_LOGGER`                | `true`                                                       | Enables/disables the HTTP request/response logger.                 |

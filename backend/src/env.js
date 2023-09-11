@@ -53,6 +53,7 @@ module.exports = {
   allowedContentTypes: parseCsv(requireFromEnv('ALLOWED_CONTENT_TYPES', 'application/json')),
   appName: requireFromEnv('APP_NAME', packageJson.name),
   corsOrigins: parseCsv(requireFromEnv('CORS_ORIGINS', 'http://localhost')),
+  databaseEnabled: isEnabled('ENABLE_DB'),
   databaseUrl: requireFromEnv('MONGO_URI', 'mongodb://caselabels:caselabels@localhost:27017/caselabels'),
   destructiveEndpointsEnabled: hasDestructiveEndpoints(),
   loggerEnabled: isEnabled('ENABLE_LOGGER'),

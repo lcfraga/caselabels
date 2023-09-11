@@ -67,7 +67,7 @@ pipeline {
             environment {
                 MOCHA_REPORTER    = 'mocha-jenkins-reporter'
                 JUNIT_REPORT_PATH = 'report.xml'
-                MONGO_URI         = 'mongo-uri-placeholder'
+                ENABLE_DB         = 'false'
                 JWT_PUBLIC_KEY    = 'jwt-public-key-placeholder'
                 JWT_PRIVATE_KEY   = 'jwt-private-key-placeholder'
             }
@@ -140,7 +140,7 @@ pipeline {
 
     post {
         always {
-            node('master') {
+            node('built-in') {
                 sh 'script/docker/compose-ci down --volumes'
                 sh 'docker system prune --volumes -f'
             }
