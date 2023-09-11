@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+const Joi = require('joi')
 
 module.exports = Joi.object().keys({
   code: Joi.string().required().alphanum().length(3).uppercase(),
