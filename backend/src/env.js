@@ -67,7 +67,6 @@ module.exports = {
   jwtPrivateKey: requireFromEnv('JWT_PRIVATE_KEY'),
   metricsEnabled: isEnabled('ENABLE_METRICS'),
   metricsPath: requireFromEnv('METRICS_PATH', '/metrics'),
-  metricsPrefix: requireFromEnv('METRICS_PREFIX', ''),
   pathPrefix: requireFromEnv('PATH_PREFIX', ''),
   version: packageJson.version
 }

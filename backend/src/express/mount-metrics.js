@@ -1,4 +1,4 @@
-const createMetricsMiddleware = require('express-prometheus-middleware')
+const createMetricsMiddleware = require('express-prom-bundle')
 
 function mountMetrics (app, env) {
   if (!env.metricsEnabled) {
@@ -7,9 +7,9 @@ function mountMetrics (app, env) {
 
   const metricsMiddleware = createMetricsMiddleware({
     metricsPath: env.metricsPath,
-    collectDefaultMetrics: true,
-    collectGCMetrics: false,
-    prefix: env.metricsPrefix
+    includeStatusCode: true,
+    includeMethod: true,
+    includePath: true
   })
 
   app.use(metricsMiddleware)

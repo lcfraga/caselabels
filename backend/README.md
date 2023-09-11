@@ -1,6 +1,6 @@
 # caselabels-backend
 
-HTTP JSON API with endpoints for user registration and authentication, case creation and retrieval, label creation and retrieval, and caselabel creation. It uses [express-prometheus-middleware](https://www.npmjs.com/package/express-prometheus-middleware) to provide a metrics endpoint compatible with Prometheus, and [OpenTelemetry](https://opentelemetry.io/) to send request traces to Jaeger.
+HTTP JSON API with endpoints for user registration and authentication, case creation and retrieval, label creation and retrieval, and caselabel creation. It uses [express-prom-bundle](https://www.npmjs.com/package/express-prom-bundle) to provide a metrics endpoint compatible with Prometheus, and [OpenTelemetry](https://opentelemetry.io/) to send request traces to Jaeger.
 
 The implementation tries to follow clean architecture principles, and is based on code from the following repositories:
 
@@ -35,7 +35,6 @@ It's possible to set/override the following environment variables to configure t
 | `JWT_PRIVATE_KEY`              |                                                              | Private key for JWT signature algorithm.                           |
 | `ENABLE_METRICS`               | `true`                                                       | Enables/disables metrics endpoint for Prometheus.                  |
 | `METRICS_PATH`                 | `/metrics`                                                   | Mount path of metrics endpoint.                                    |
-| `METRICS_PREFIX`               |                                                              | Mount prefix of metrics endpoint. Defaults to empty string.        |
 | `PATH_PREFIX`                  |                                                              | Mount prefix of application endpoints. Defaults to empty string.   |
 
 Consider using a tool like [direnv](https://direnv.net/) to manage your environment variables.
