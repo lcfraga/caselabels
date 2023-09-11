@@ -9,11 +9,7 @@ const dbModels = require('./models')
 const makeUsersDb = require('./users-db')
 
 if (env.databaseEnabled) {
-  mongoose.connect(env.databaseUrl, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  mongoose.connect(env.databaseUrl)
 
   mongoose.connection.once('open', function () {
     console.log('Mongoose connection open')
