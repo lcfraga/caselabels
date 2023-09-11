@@ -7,9 +7,9 @@ See [frontend](frontend/README.md), [backend](backend/README.md) and [kubernetes
 
 ## Minimum requirements
 
-Node.js `12.18.2` must be installed. If you're using [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions, all you have to do is run `nodenv install` in the repository root.
+Node.js `20.6.1` must be installed. If you're using [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions, all you have to do is run `nodenv install` in the repository root.
 
-Recent versions of docker and docker-compose, e.g., docker `19.03.12` and docker-compose `1.26.2`, must also be installed.
+Recent versions of docker and docker-compose, e.g., docker `24.0.6` and docker-compose `2.21.0`, must also be installed.
 
 
 ## Running
@@ -75,7 +75,7 @@ Since the pipeline times out after 15 minutes, it may be better to pull the imag
 
 ```
 docker pull mongo:3.6
-docker pull node:lts-alpine
+docker pull node:20.6.0-alpine
 docker pull openjdk:11-jdk-slim
 ```
 

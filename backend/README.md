@@ -10,7 +10,7 @@ The implementation tries to follow clean architecture principles, and is based o
 
 ## Minimum requirements
 
-Node.js `12.18.2` must be installed. Consider using something like [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions.
+Node.js `20.6.1` must be installed. Consider using something like [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions.
 
 
 ## Environment variables

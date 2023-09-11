@@ -5,7 +5,7 @@ React frontend with forms to register users, log in and create caselabels. This 
 
 ## Requirements
 
-Node.js `12.18.2` must be installed. Consider using something like [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions.
+Node.js `20.6.1` must be installed. Consider using something like [nodenv](https://github.com/nodenv/nodenv) and [node-build](https://github.com/nodenv/node-build) to manage installed Node.js versions.
 
 
 ## Installing dependencies

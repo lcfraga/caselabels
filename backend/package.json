@@ -42,7 +42,7 @@
     "nodemon": "~2.0.4"
   },
   "engines": {
-    "node": "~12.18.2"
+    "node": "~20.6.1"
   },
   "nodemonConfig": {
     "ignore": [

@@ -32,7 +32,7 @@ pipeline {
         stage('Install dependencies') {
             agent {
                 docker {
-                    image 'node:lts-alpine'
+                    image 'node:20.6.0-alpine'
                 }
             }
 
@@ -46,7 +46,7 @@ pipeline {
         stage('Run linter') {
             agent {
                 docker {
-                    image 'node:lts-alpine'
+                    image 'node:20.6.0-alpine'
                 }
             }
 
@@ -60,7 +60,7 @@ pipeline {
         stage('Run unit tests') {
             agent {
                 docker {
-                    image 'node:lts-alpine'
+                    image 'node:20.6.0-alpine'
                 }
             }
 
