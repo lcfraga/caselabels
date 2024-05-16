@@ -49,7 +49,7 @@ class AuthorizationTest : DescribeSpec({
                     val response: HttpResponse = client.request {
                         method = testParameters.httpMethod
                         url {
-                            encodedPath = testParameters.path
+                            encodedPath = BackendConfig.prefixed(testParameters.path)
                         }
                     }
 
@@ -107,7 +107,7 @@ class AuthorizationTest : DescribeSpec({
                         val response: HttpResponse = client.request {
                             method = testParameters.httpMethod
                             url {
-                                encodedPath = testParameters.path
+                                encodedPath = BackendConfig.prefixed(testParameters.path)
                             }
                         }
 
@@ -171,7 +171,7 @@ class AuthorizationTest : DescribeSpec({
                             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
                             method = testParameters.httpMethod
                             url {
-                                encodedPath = testParameters.path
+                                encodedPath = BackendConfig.prefixed(testParameters.path)
                             }
                         }
 

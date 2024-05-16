@@ -17,25 +17,25 @@ Node.js `20.6.1` must be installed. Consider using something like [nodenv](https
 
 It's possible to set/override the following environment variables to configure the application.
 
-| Name                           | Default value                                                | Description                                                        |
-| ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `APP_NAME`                     | `caselabels-backend`                                         | Used in the server's initial log message.                          |
-| `ALLOWED_CONTENT_TYPES`        | `application/json`                                           | Comma-separated list of allowed content types.                     |
-| `CORS_ORIGINS`                 | `http://localhost`                                           | Comma-separated list of allowed CORS origins.                      |
-| `ENABLE_DB`                    | `true`                                                       | **Experimental!** Enables/disables the creation of a database connection.                      |
-| `MONGO_URI`                    | `mongodb://caselabels:caselabels@localhost:27017/caselabels` | MongoDB URI.                                                       |
-| `ENABLE_DESTRUCTIVE_ENDPOINTS` | `false`                                                      | Enables/disables the database reset endpoint used in system tests. |
-| `ENABLE_LOGGER`                | `true`                                                       | Enables/disables the HTTP request/response logger.                 |
-| `PORT`                         | `3000`                                                       | Port the server will listen on.                                    |
-| `ENABLE_JWT`                   | `true`                                                       | Enables/disables JWT authentication.                               |
-| `JWT_ISSUER`                   | `caselabels.io`                                              | JWT issuer claim.                                                  |
-| `JWT_AUDIENCE`                 | `caselabels-ui`                                              | JWT audience claim.                                                |
-| `JWT_ALGORITHM`                | `RS256`                                                      | JWT signature algorithm.                                           |
-| `JWT_PUBLIC_KEY`               |                                                              | Public key for JWT signature algorithm.                            |
-| `JWT_PRIVATE_KEY`              |                                                              | Private key for JWT signature algorithm.                           |
-| `ENABLE_METRICS`               | `true`                                                       | Enables/disables metrics endpoint for Prometheus.                  |
-| `METRICS_PATH`                 | `/metrics`                                                   | Mount path of metrics endpoint.                                    |
-| `PATH_PREFIX`                  |                                                              | Mount prefix of application endpoints. Defaults to empty string.   |
+| Name                           | Default value                                                | Description                                                                    |
+| ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `APP_NAME`                     | `caselabels-backend`                                         | Used in the server's initial log message.                                      |
+| `ALLOWED_CONTENT_TYPES`        | `application/json`                                           | Comma-separated list of allowed content types.                                 |
+| `CORS_ORIGINS`                 | `http://localhost`                                           | Comma-separated list of allowed CORS origins.                                  |
+| `ENABLE_DB`                    | `true`                                                       | **Experimental!** Enables/disables the creation of a database connection.      |
+| `MONGO_URI`                    | `mongodb://caselabels:caselabels@localhost:27017/caselabels` | MongoDB URI.                                                                   |
+| `ENABLE_DESTRUCTIVE_ENDPOINTS` | `false`                                                      | Enables/disables the database reset endpoint used in system tests.             |
+| `ENABLE_LOGGER`                | `true`                                                       | Enables/disables the HTTP request/response logger.                             |
+| `PORT`                         | `3000`                                                       | Port the server will listen on.                                                |
+| `ENABLE_JWT`                   | `true`                                                       | Enables/disables JWT authentication.                                           |
+| `JWT_ISSUER`                   | `caselabels.io`                                              | JWT issuer claim.                                                              |
+| `JWT_AUDIENCE`                 | `caselabels-ui`                                              | JWT audience claim.                                                            |
+| `JWT_ALGORITHM`                | `RS256`                                                      | JWT signature algorithm.                                                       |
+| `JWT_PUBLIC_KEY`               |                                                              | Public key for JWT signature algorithm.                                        |
+| `JWT_PRIVATE_KEY`              |                                                              | Private key for JWT signature algorithm.                                       |
+| `ENABLE_METRICS`               | `true`                                                       | Enables/disables metrics endpoint for Prometheus.                              |
+| `METRICS_PATH`                 | `/metrics`                                                   | Mount path of metrics endpoint.                                                |
+| `PATH_PREFIX`                  |                                                              | Mount prefix of application endpoints, e.g., `/api`. Defaults to empty string. |
 
 Consider using a tool like [direnv](https://direnv.net/) to manage your environment variables.
 
@@ -89,12 +89,12 @@ cd test/system
 ./gradlew test
 ```
 
-By default, system tests expect the backend to be available at http://localhost:3000. We can use the `HOST` and `PORT` environment variables to override that. For example, we can start the backend at another port with `PORT=5000 ENABLE_DESTRUCTIVE_ENDPOINTS=true npm start`, and then tell the tests to use that port instead:
+By default, system tests expect the backend to be available at http://localhost:3000. We can use the `HOST`, `PORT` and `PREFIX` environment variables to override that. For example, we can start the backend at another port, and using a prefix for the API paths, with `PORT=5000 PATH_PREFIX=/api ENABLE_DESTRUCTIVE_ENDPOINTS=true npm start`, and then tell the tests to use that port and that prefix instead:
 
 ```sh
 cd test/system
 ./gradlew clean
-PORT=5000 ./gradlew test
+PORT=5000 PREFIX=api ./gradlew test
 ```
 
 Notice that we have to use `ENABLE_DESTRUCTIVE_ENDPOINTS=true`. Otherwise, the database reset endpoint will be disabled and tests will fail.

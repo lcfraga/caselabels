@@ -15,6 +15,14 @@ data class BackendResponseBodyWrapper<T>(val data: T)
 
 data class BackendErrorMessage(val error: String)
 
+object BackendConfig {
+  val port = Environment.getVariable("PORT", "3000").toInt()
+  val host = Environment.getVariable("HOST", "localhost")
+  private val prefix = Environment.getVariable("PREFIX", "")
+
+  fun prefixed(path: String = ""): String = prefix + path
+}
+
 object Backend {
 
     private val client = HttpClient(Apache) {
@@ -25,8 +33,8 @@ object Backend {
         expectSuccess = false
 
         defaultRequest {
-            host = Environment.getVariable("HOST", "localhost")
-            port = Environment.getVariable("PORT", "3000").toInt()
+            host = BackendConfig.host
+            port = BackendConfig.port
             contentType(ContentType.Application.Json)
         }
     }
@@ -37,7 +45,7 @@ object Backend {
 
     @KtorExperimentalAPI
     suspend inline fun <reified T> postCase(requestBody: Any, cookie: Cookie): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().post(path = "/cases", body = requestBody) {
+        val httpResponse: HttpResponse = getInstance().post(path = BackendConfig.prefixed("/cases"), body = requestBody) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
 
@@ -49,7 +57,7 @@ object Backend {
 
     @KtorExperimentalAPI
     suspend inline fun <reified T> getNextCase(cookie: Cookie): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().get(path = "/cases/next") {
+        val httpResponse: HttpResponse = getInstance().get(path = BackendConfig.prefixed("/cases/next")) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
 
@@ -61,7 +69,7 @@ object Backend {
 
     @KtorExperimentalAPI
     suspend inline fun <reified T> postLabel(requestBody: Any, cookie: Cookie): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().post(path = "/labels", body = requestBody) {
+        val httpResponse: HttpResponse = getInstance().post(path = BackendConfig.prefixed("/labels"), body = requestBody) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
 
@@ -73,7 +81,7 @@ object Backend {
 
     @KtorExperimentalAPI
     suspend inline fun <reified T> getLabels(cookie: Cookie): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().get(path = "/labels") {
+        val httpResponse: HttpResponse = getInstance().get(path = BackendConfig.prefixed("/labels")) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
 
@@ -85,7 +93,7 @@ object Backend {
 
     @KtorExperimentalAPI
     suspend inline fun <reified T> postCaseLabel(requestBody: Any, cookie: Cookie): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().post(path = "/caselabels", body = requestBody) {
+        val httpResponse: HttpResponse = getInstance().post(path = BackendConfig.prefixed("/caselabels"), body = requestBody) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
 
@@ -96,7 +104,7 @@ object Backend {
     }
 
     suspend inline fun <reified T> postUser(requestBody: Any): BackendResponse<T> {
-        val httpResponse: HttpResponse = getInstance().post(path = "/users", body = requestBody)
+        val httpResponse: HttpResponse = getInstance().post(path = BackendConfig.prefixed("/users"), body = requestBody)
 
         return BackendResponse(
             statusCode = httpResponse.status,
@@ -114,12 +122,12 @@ object Backend {
     }
 
     suspend fun rawPostSession(requestBody: Any): HttpResponse {
-        return getInstance().post(path = "/sessions", body = requestBody)
+        return getInstance().post(path = BackendConfig.prefixed("/sessions"), body = requestBody)
     }
 
     @KtorExperimentalAPI
     suspend fun rawDeleteSession(cookie: Cookie): HttpResponse {
-        return getInstance().delete(path = "/sessions") {
+        return getInstance().delete(path = BackendConfig.prefixed("/sessions")) {
             header(HttpHeaders.Cookie, renderSetCookieHeader(cookie))
         }
     }
