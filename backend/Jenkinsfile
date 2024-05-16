@@ -151,7 +151,7 @@ pipeline {
 
             steps {
                 dir('backend/test/go-system') {
-                    sh "API_BASE_URL=${HOST}:${PORT}" go test -v
+                    sh "API_BASE_URL=${HOST}:${PORT} go test -v"
                 }
             }
 
