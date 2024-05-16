@@ -109,7 +109,7 @@ pipeline {
             }
         }
 
-        stage('Run system tests') {
+        stage('Run Kotlin system tests') {
             agent {
                 docker {
                     image 'openjdk:11-jdk-slim'
@@ -132,6 +132,32 @@ pipeline {
             post {
                 always {
                     junit 'backend/test/system/build/test-results/test/TEST-*.xml'
+                    // sh 'rm -f system-tests-host system-tests-port'
+                }
+            }
+        }
+
+        stage('Run Go system tests') {
+            agent {
+                docker {
+                    image 'golang:1.22.3-alpine'
+                }
+            }
+
+            environment {
+                HOST = sh(script: 'cat system-tests-host', returnStdout: true).trim()
+                PORT = sh(script: 'cat system-tests-port', returnStdout: true).trim()
+            }
+
+            steps {
+                dir('backend/test/go-system') {
+                    sh "API_BASE_URL=${HOST}:${PORT}" go test -v
+                }
+            }
+
+            post {
+                always {
+                    // junit 'backend/test/system/build/test-results/test/TEST-*.xml'
                     sh 'rm -f system-tests-host system-tests-port'
                 }
             }
