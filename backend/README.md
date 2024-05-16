@@ -100,6 +100,23 @@ PORT=5000 PREFIX=api ./gradlew test
 Notice that we have to use `ENABLE_DESTRUCTIVE_ENDPOINTS=true`. Otherwise, the database reset endpoint will be disabled and tests will fail.
 
 
+## Running system tests (Go)
+
+There's also a system test suite written in Go which is almost equivalent to the Kotlin system test suite. Go 1.22.3 must be installed. To run them:
+
+```sh
+cd test/go-system
+go test
+```
+
+By default, system tests expect the backend to be available at http://localhost:3000. We can use the `API_BASE_URL` environment variable to override that. If the backend is listening at port `5000` and using a `/api` prefix:
+
+```sh
+cd test/go-system
+API_BASE_URL=http://localhost:5000/api go test
+```
+
+
 ## Create docker image
 
 Run [`script/dockerize`](script/dockerize).
