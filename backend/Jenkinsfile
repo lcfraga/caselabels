@@ -156,7 +156,7 @@ pipeline {
 
             steps {
                 dir('backend/test/go-system') {
-                    sh "docker run --rm -e API_BASE_URL=${HOST}:${PORT} caselabels-backend-system-tests > report.xml"
+                    sh "docker run --rm -e API_BASE_URL=http://${HOST}:${PORT} caselabels-backend-system-tests > report.xml"
                 }
             }
 
