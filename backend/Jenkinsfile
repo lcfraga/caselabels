@@ -137,12 +137,16 @@ pipeline {
             }
         }
 
-        stage('Run Go system tests') {
-            agent {
-                docker {
-                    image 'golang:1.22.3-alpine'
-                }
+        stage('Build backend system tests (Go) docker image') {
+            agent { label 'built-in' }
+
+            steps {
+                sh 'script/dockerize'
             }
+        }
+
+        stage('Run Go system tests') {
+            agent { label 'built-in' }
 
             environment {
                 HOST = sh(script: 'cat system-tests-host', returnStdout: true).trim()
@@ -151,7 +155,7 @@ pipeline {
 
             steps {
                 dir('backend/test/go-system') {
-                    sh "API_BASE_URL=${HOST}:${PORT} go test -v"
+                    sh "docker run --rm -e API_BASE_URL=${HOST}:${PORT} caselabels-backend-system-tests"
                 }
             }
 
