@@ -12,9 +12,10 @@ import (
 
 func TestCreateInvalidCase(t *testing.T) {
 	testCases := []struct {
-		caze     *CreateCaseRequest
+		caze     any
 		errorMsg string
 	}{
+		{&CreateCaseRequestOmit{nil}, `\"content\" is required`},
 		{&CreateCaseRequest{StringPtr("")}, `\"content\" is not allowed to be empty`},
 		{&CreateCaseRequest{nil}, `\"content\" must be a string`},
 		{&CreateCaseRequest{StringPtr(strings.Repeat("s", 49))}, `\"content\" length must be at least 50 characters long`},

@@ -18,14 +18,17 @@ func TestCreateInvalidUser(t *testing.T) {
 	)
 
 	testCases := []struct {
-		user     *CreateUserRequest
+		user     any
 		errorMsg string
 	}{
+		{&CreateUserRequestOmit{nil, &validEmail, &ValidPassword}, `\"name\" is required`},
 		{&CreateUserRequest{StringPtr(""), &validEmail, &ValidPassword}, `\"name\" is not allowed to be empty`},
 		{&CreateUserRequest{nil, &validEmail, &ValidPassword}, `\"name\" must be a string`},
+		{&CreateUserRequestOmit{&validName, nil, &ValidPassword}, `\"email\" is required`},
 		{&CreateUserRequest{&validName, StringPtr(""), &ValidPassword}, `\"email\" is not allowed to be empty`},
 		{&CreateUserRequest{&validName, nil, &ValidPassword}, `\"email\" must be a string`},
 		{&CreateUserRequest{&validName, StringPtr("invalid-email"), &ValidPassword}, `\"email\" must be a valid email`},
+		{&CreateUserRequestOmit{&validName, &validEmail, nil}, `\"password\" is required`},
 		{&CreateUserRequest{&validName, &validEmail, StringPtr("")}, `\"password\" is not allowed to be empty`},
 		{&CreateUserRequest{&validName, &validEmail, nil}, `\"password\" must be a string`},
 		{&CreateUserRequest{&validName, &validEmail, StringPtr(strings.Repeat("p", 7))}, `\"password\" length must be at least 8 characters long`},

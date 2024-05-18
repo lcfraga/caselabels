@@ -18,18 +18,21 @@ func TestInvalidCaseLabelling(t *testing.T) {
 	)
 
 	testCases := []struct {
-		labelling *LabelCaseRequest
+		labelling any
 		errorMsg  string
 	}{
+		{&LabelCaseRequestOmit{nil, &validLabel, &validDuration}, `\"caseId\" is required`},
 		{&LabelCaseRequest{nil, &validLabel, &validDuration}, `\"caseId\" must be a string`},
 		{&LabelCaseRequest{StringPtr(""), &validLabel, &validDuration}, `\"caseId\" is not allowed to be empty`},
 		{&LabelCaseRequest{StringPtr("invalid-cuid"), &validLabel, &validDuration}, `\"caseId\" contains an invalid value`},
 		{&LabelCaseRequest{&validCaseId, nil, &validDuration}, `\"label\" must be a string`},
+		{&LabelCaseRequestOmit{&validCaseId, nil, &validDuration}, `\"label\" is required`},
 		{&LabelCaseRequest{&validCaseId, StringPtr(""), &validDuration}, `\"label\" is not allowed to be empty`},
 		{&LabelCaseRequest{&validCaseId, StringPtr("lbl"), &validDuration}, `\"label\" must only contain uppercase characters`},
 		{&LabelCaseRequest{&validCaseId, StringPtr("/*;"), &validDuration}, `\"label\" must only contain alpha-numeric characters`},
 		{&LabelCaseRequest{&validCaseId, StringPtr("LB"), &validDuration}, `\"label\" length must be 3 characters long`},
 		{&LabelCaseRequest{&validCaseId, StringPtr("LBLB"), &validDuration}, `\"label\" length must be 3 characters long`},
+		{&LabelCaseRequestOmit{&validCaseId, &validLabel, nil}, `\"durationInMillis\" is required`},
 		{&LabelCaseRequest{&validCaseId, &validLabel, nil}, `\"durationInMillis\" must be a number`},
 		{&LabelCaseRequest{&validCaseId, &validLabel, IntPtr(0)}, `\"durationInMillis\" must be a positive number`},
 		{&LabelCaseRequest{&validCaseId, &validLabel, IntPtr(-1)}, `\"durationInMillis\" must be a positive number`},

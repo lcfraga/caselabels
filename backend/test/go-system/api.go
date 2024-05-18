@@ -294,10 +294,21 @@ type JwtPayload struct {
 	Id string `json:"id"`
 }
 
+type CreateUserRequestOmit struct {
+	Name     *string `json:"name,omitempty"`
+	Email    *string `json:"email,omitempty"`
+	Password *string `json:"password,omitempty"`
+}
+
 type CreateUserRequest struct {
 	Name     *string `json:"name"`
 	Email    *string `json:"email"`
 	Password *string `json:"password"`
+}
+
+type CreateSessionRequestOmit struct {
+	Email    *string `json:"email,omitempty"`
+	Password *string `json:"password,omitempty"`
 }
 
 type CreateSessionRequest struct {
@@ -305,25 +316,40 @@ type CreateSessionRequest struct {
 	Password *string `json:"password"`
 }
 
+type CreateLabelRequestOmit struct {
+	Code        *string `json:"code,omitempty"`
+	Description *string `json:"description,omitempty"`
+}
+
 type CreateLabelRequest struct {
 	Code        *string `json:"code"`
 	Description *string `json:"description"`
+}
+
+type CreateCaseRequestOmit struct {
+	Content *string `json:"content,omitempty"`
 }
 
 type CreateCaseRequest struct {
 	Content *string `json:"content"`
 }
 
-type ResponseWithId struct {
-	Data struct {
-		Id string `json:"id"`
-	} `json:"data"`
+type LabelCaseRequestOmit struct {
+	CaseId           *string `json:"caseId,omitempty"`
+	Label            *string `json:"label,omitempty"`
+	DurationInMillis *int    `json:"durationInMillis,omitempty"`
 }
 
 type LabelCaseRequest struct {
 	CaseId           *string `json:"caseId"`
 	Label            *string `json:"label"`
 	DurationInMillis *int    `json:"durationInMillis"`
+}
+
+type ResponseWithId struct {
+	Data struct {
+		Id string `json:"id"`
+	} `json:"data"`
 }
 
 var actions = APIActions{

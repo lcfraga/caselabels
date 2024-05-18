@@ -30,7 +30,6 @@ go test -v -run "TestCreate(Valid|Invalid)Label"
 
 ## TODO
 
-* [ ] Add tests sending requests with JSON omitting empty/null values
 * [ ] Try to remove apitest
 
 ## Removing apitest

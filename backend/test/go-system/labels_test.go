@@ -16,15 +16,17 @@ func TestCreateInvalidLabel(t *testing.T) {
 	)
 
 	testCases := []struct {
-		label    *CreateLabelRequest
+		label    any
 		errorMsg string
 	}{
+		{&CreateLabelRequestOmit{nil, &validDescription}, `\"code\" is required`},
 		{&CreateLabelRequest{StringPtr(""), &validDescription}, `\"code\" is not allowed to be empty`},
 		{&CreateLabelRequest{nil, &validDescription}, `\"code\" must be a string`},
 		{&CreateLabelRequest{StringPtr("aaa"), &validDescription}, `\"code\" must only contain uppercase characters`},
 		{&CreateLabelRequest{StringPtr("A/B"), &validDescription}, `\"code\" must only contain alpha-numeric characters`},
 		{&CreateLabelRequest{StringPtr("AA"), &validDescription}, `\"code\" length must be 3 characters long`},
 		{&CreateLabelRequest{StringPtr("ZZZZ"), &validDescription}, `\"code\" length must be 3 characters long`},
+		{&CreateLabelRequestOmit{&validCode, nil}, `\"description\" is required`},
 		{&CreateLabelRequest{&validCode, StringPtr("")}, `\"description\" is not allowed to be empty`},
 		{&CreateLabelRequest{&validCode, nil}, `\"description\" must be a string`},
 		{&CreateLabelRequest{&validCode, StringPtr(strings.Repeat("a", 9))}, `\"description\" length must be at least 10 characters long`},

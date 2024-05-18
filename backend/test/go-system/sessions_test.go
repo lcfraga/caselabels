@@ -15,12 +15,14 @@ func TestCreateInvalidSession(t *testing.T) {
 	)
 
 	testCases := []struct {
-		session  *CreateSessionRequest
+		session  any
 		errorMsg string
 	}{
+		{&CreateSessionRequestOmit{nil, &validPassword}, `\"email\" is required`},
 		{&CreateSessionRequest{StringPtr(""), &validPassword}, `\"email\" is not allowed to be empty`},
 		{&CreateSessionRequest{nil, &validPassword}, `\"email\" must be a string`},
 		{&CreateSessionRequest{StringPtr("not-an-email"), &validPassword}, `\"email\" must be a valid email`},
+		{&CreateSessionRequestOmit{&validEmail, nil}, `\"password\" is required`},
 		{&CreateSessionRequest{&validEmail, StringPtr("")}, `\"password\" is not allowed to be empty`},
 		{&CreateSessionRequest{&validEmail, nil}, `\"password\" must be a string`},
 	}
